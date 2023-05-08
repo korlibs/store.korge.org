@@ -9,4 +9,4 @@ enabled: true
 order: 3
 ---
 
-Shows how to use Tiled maps
+Shows how to use Tiled maps & .ASE image format for characters
