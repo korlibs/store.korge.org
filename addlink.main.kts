@@ -62,22 +62,46 @@ val repotagsFile = File("./_repotags/github.com/$org/$repo/github.com-$org-$repo
 
 println("file: $mainModuleFile")
 
+fun getRepoTags(org: String, repo: String): Map<String, String> {
+    val tags = Json.parse(downloadUrlText("https://api.github.com/repos/$org/$repo/tags")).dyn
+    return tags.list.associate { it["name"].str to it["commit"]["sha"].str }
+}
+
+fun getCommitDate(org: String, repo: String, ref: String): String {
+    val info = Json.parse(downloadUrlText("https://api.github.com/repos/$org/$repo/commits/$ref")).dyn
+    //println(info)
+    return info["commit"]["committer"]["date"].str
+}
+
 fun addTagToMap(data: MutableMap<String, Any?>, tag: String, commitId: String) {
 // Modify the data structure as needed
     if ("tags" !in data || data["tags"] !is MutableList<*>) {
         data["tags"] = arrayListOf<Any?>()
     }
-    val tags = (data["tags"] as MutableList<Map<String, String>>)
-    for (_tag in tags) {
-        if (tag in _tag) return
+    if ("dates" !in data || data["dates"] !is MutableMap<*, *>) {
+        data["dates"] = mutableMapOf<String, String>()
     }
-    println("Added tag $tag -> $commitId")
-    tags.add(mapOf(tag to commitId))
-}
+    val tags = (data["tags"] as MutableList<Map<String, String>>)
+    var exists = false
+    for (_tag in tags) {
+        if (tag in _tag) {
+            exists = true
+            break
+        }
+    }
+    if (!exists) {
+        println("Added tag $tag -> $commitId")
+        tags.add(mapOf(tag to commitId))
+    } else {
+        println("Existing tag $tag -> $commitId")
+    }
 
-fun getRepoTags(org: String, repo: String): Map<String, String> {
-    val tags = Json.parse(downloadUrlText("https://api.github.com/repos/$org/$repo/tags")).dyn
-    return tags.list.associate { it["name"].str to it["commit"]["sha"].str }
+    val dates = data["dates"] as MutableMap<String, String>
+    if (commitId !in dates) {
+        val date = getCommitDate(org, repo, commitId)
+        dates[commitId] = date
+    }
+    println(" -> ${dates[commitId]}")
 }
 
 if (!mainModuleFile.exists()) {

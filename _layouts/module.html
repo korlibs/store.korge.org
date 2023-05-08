@@ -16,23 +16,22 @@ title: My Page
     </div>
     <div class="row ">
         <div class="col-3 order-2">
+            {% include authors.html authors=page.authors %}
+
             <h3>
-                Authors:
+                Tags:
             </h3>
             <ul class="list-group">
-                {% for author in page.authors %}
-                <li class="list-group-item">
-                    <a href="https://github.com/{{ author}}" tatget="_blank" style="font-size: 1.25em;white-space: nowrap"><img src="https://github.com/{{ author}}.png" style="width:1em;height:1em;margin-top:-.2em;" />&nbsp;{{ author }}</a>
-                </li>{% endfor %}
-            </ul>
-
-            <h2>
-                Tags:
-            </h2>
-            <ul>
                 {% for tag in repotag.tags %}
                 {% for t in tag %}
-                <li><a href="#{{t|first}}" class="tagref">{{ t | first }}</a></li>
+                <a href="#{{t|first}}" class="tagref list-group-item list-group-item-action">
+                    {{ t | first }}
+                    {% assign commitId = t | last %}
+                    {% assign date = repotag.dates[commitId] %}
+                    {% if date %}
+                    <small class="badge badge-info">{{ date | date: "%Y-%-m-%d" }}</small>
+                    {% endif %}
+                </a>
                 {% endfor %}
                 {% endfor %}
             </ul>
@@ -78,10 +77,11 @@ dependencies:
 
     function updateTags() {
         document.querySelectorAll(".tagref").forEach((it) => {
-            if (it.textContent === currentTag) {
-                it.classList.add("selected")
+            const tag = it.href.split('#')[1]
+            if (tag === currentTag) {
+                it.classList.add("active")
             } else {
-                it.classList.remove("selected")
+                it.classList.remove("active")
             }
         })
     }
