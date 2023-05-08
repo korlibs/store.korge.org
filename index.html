@@ -3,6 +3,7 @@ layout: default
 title: KorGE Store Ecosystem (Assets, Modules & Libraries)
 ---
 
+
 <div class="container">
     <div class="row">
         <h1>Starter Kits (<a href="/starterkits.json" target="_blank"><code>starterkits.json</code></a>)</h1>
@@ -14,21 +15,7 @@ title: KorGE Store Ecosystem (Assets, Modules & Libraries)
         {% assign starterkits = site.starterkits | sort: "order" %}
         {% for kit in starterkits %}
         {% if kit.enabled %}
-            <div class="col col-sm-4 col-md-3 col-lg-3 col-xl-2">
-                <div class="card single-features" style="width:160px;height: 240px;margin-bottom:16px;">
-                    {% if kit.screenshot %}
-                    <img src="{{ kit.screenshot }}" class="card-img-top" style="height:160px;" alt="{{ module.title }}"/>
-                    {% endif %}
-
-                    <div class="card-body">
-                        <h5 class="card-title">
-                            <a href="{{ kit.url }}">
-                                {{ kit.title }}
-                            </a>
-                        </h5>
-                    </div>
-                </div>
-            </div>
+            {% include card.html title=kit.title screenshot=kit.screenshot url=kit.url %}
         {% endif %}
         {% endfor %}
     </div>
@@ -36,7 +23,7 @@ title: KorGE Store Ecosystem (Assets, Modules & Libraries)
 
 <div class="container">
     <div class="row">
-    <h1>Modules</h1>
+    <h1>Assets, Libraries & Modules</h1>
     </div>
 </div>
 {% assign grouped_modules = site.modules | group_by: "category" %}
@@ -51,21 +38,8 @@ title: KorGE Store Ecosystem (Assets, Modules & Libraries)
         {% assign modules = grouped_module.items %}
         {% for module in modules %}
 
-        <div class="col col-sm-4 col-md-3 col-lg-3 col-xl-2">
-            <div class="card single-features" style="width:160px;height: 240px;margin-bottom:16px;">
-                {% if module.icon %}
-                <img src="{{ module.icon }}" class="card-img-top" style="height:160px;" alt="{{ module.title }}"/>
-                {% endif %}
-                <div class="card-body">
-                    <h5 class="card-title">
-                        <a href="{{ module.url }}">
-                            {{ module.title }}
-                        </a>
-                    </h5>
-                    <!--<a href="#" class="btn btn-primary">Open</a>-->
-                </div>
-            </div>
-        </div>
+        {% include card.html title=module.title screenshot=module.icon url=module.url %}
+
         {% endfor %}
     </div>
 </div>

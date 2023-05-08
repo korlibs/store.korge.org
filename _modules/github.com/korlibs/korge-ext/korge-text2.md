@@ -1,6 +1,6 @@
 ---
 layout: module
-title: korge-text2
+title: Old Text Engine
 category: Text
 link: https://github.com/korlibs/korge-ext/tree/main/korge-text2
 ---

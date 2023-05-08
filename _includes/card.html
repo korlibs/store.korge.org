@@ -1,0 +1,16 @@
+<div class="col col-sm-4 col-md-3 col-lg-3 col-xl-2">
+    <div class="card single-features" style="width:160px;height: 160px;margin-bottom:16px;">
+        <!--
+        <img src="{{ include.screenshot }}" class="card-img-top" style="height:160px;" alt="{{ module.title }}"/>
+        -->
+        <div style="background-image: url('{{ include.screenshot }}'); background-size:cover; background-position: center; width:100%;height:100%;">
+            <div style="backdrop-filter:blur(4px);position:absolute;bottom:0;width:100%;">
+                <div style="background:rgba(0,0,0,0.3);padding: 8px;">
+                <a href="{{ include.url }}" style="color:white !important;text-decoration:none !important;">
+                    {{ include.title }}
+                </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
