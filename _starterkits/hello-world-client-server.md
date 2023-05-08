@@ -4,6 +4,7 @@ title: Hello World Client Server
 repo: https://github.com/korlibs/korge-hello-world-client-server
 branch: main
 enabled: true
+order: 1
 ---
 
 An example showing how to combine a KorGE client,

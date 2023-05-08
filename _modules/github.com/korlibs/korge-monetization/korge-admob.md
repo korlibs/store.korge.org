@@ -1,6 +1,7 @@
 ---
 layout: module
 title: KorGE Admob
+category: Monetization
 link: https://github.com/korlibs/korge-monetization/tree/main/korge-admob
 icon: https://github.com/korlibs/korge-monetization/raw/0626116280e4da8f9e3f55211c6f1b100e711bb1/korge-admob/admob.svg
 ---

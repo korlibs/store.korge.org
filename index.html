@@ -1,35 +1,213 @@
 ---
 layout: default
-title: KorGE Store
+title: KorGE Store Ecosystem (Assets, Modules & Libraries)
 ---
 
-<h1>Starter Kits (<a href="/starterkits.json" target="_blank"><code>starterkits.json</code></a>)</h1>
-<ul>
-{% for kit in site.starterkits %}
-{% if kit.enabled %}
-    <li>
-        <a href="{{ kit.url }}">
-            <img src="{{ kit.screenshot }}" style="width:100px;" />
-            {{ kit.title }}
-        </a>
-    </li>
-{% endif %}
-{% endfor %}
-</ul>
+<div class="container">
+    <div class="row">
+        <h1>Starter Kits (<a href="/starterkits.json" target="_blank"><code>starterkits.json</code></a>)</h1>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
 
-<h1>Modules</h1>
-<ul>
-    {% assign grouped_modules = site.modules | group_by: "category" %}
-    {% for grouped_module in grouped_modules %}
-    <h2>{{ grouped_module.name }}</h2>
-    {% assign modules = grouped_module.items %}
-    {% for module in modules %}
-    <li>
-        <a href="{{ module.url }}">
-            <img src="{{ module.icon }}" style="width:100px;" />
-            {{ module.title }}
-        </a>
-    </li>
-    {% endfor %}
-    {% endfor %}
-</ul>
+        {% assign starterkits = site.starterkits | sort: "order" %}
+        {% for kit in starterkits %}
+        {% if kit.enabled %}
+            <div class="col col-sm-4 col-md-3 col-lg-3 col-xl-2">
+                <div class="card single-features" style="width:160px;height: 240px;margin-bottom:16px;">
+                    {% if kit.screenshot %}
+                    <img src="{{ kit.screenshot }}" class="card-img-top" style="height:160px;" alt="{{ module.title }}"/>
+                    {% endif %}
+
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <a href="{{ kit.url }}">
+                                {{ kit.title }}
+                            </a>
+                        </h5>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+    <h1>Modules</h1>
+    </div>
+</div>
+{% assign grouped_modules = site.modules | group_by: "category" %}
+{% for grouped_module in grouped_modules %}
+<div class="container">
+    <div class="row">
+        <h2>{{ grouped_module.name }}</h2>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        {% assign modules = grouped_module.items %}
+        {% for module in modules %}
+
+        <div class="col col-sm-4 col-md-3 col-lg-3 col-xl-2">
+            <div class="card single-features" style="width:160px;height: 240px;margin-bottom:16px;">
+                {% if module.icon %}
+                <img src="{{ module.icon }}" class="card-img-top" style="height:160px;" alt="{{ module.title }}"/>
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <a href="{{ module.url }}">
+                            {{ module.title }}
+                        </a>
+                    </h5>
+                    <!--<a href="#" class="btn btn-primary">Open</a>-->
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endfor %}
+
+<style>
+    .single-features {
+        cursor: pointer;
+        transform: perspective(4000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1);
+        box-shadow: rgba(15, 102, 116, 0.45) 0 0 5px;
+        transition: transform .5s, box-shadow 1s;
+        overflow: hidden;
+        border-radius: 16px;
+    }
+    .single-features:hover {
+        box-shadow: rgba(15, 102, 116, 0.17) 0 0 45px;
+        /*opacity: calc(100% + var(--mouse-ratioX));*/
+        /*
+        transform: perspective(4000px)
+            rotateX(
+                calc(
+                    var(--mouse-mY, 0) * -8deg
+                )
+            )
+            rotateY(
+                calc(
+                    var(--mouse-mX, 0) * 8deg
+                )
+            )
+            scale3d(1.1, 1.1, 1.1);
+         */
+        transition: transform .1s, box-shadow 1s;
+    }
+    .single-features:hover a {
+        color: var(--purple) !important;
+        transition: color 0.5s;
+    }
+</style>
+
+<script type="application/javascript">
+
+    function getMouseCoordinatesRelativeToElementCoords(coords, element) {
+        const rect = element.getBoundingClientRect();
+        const mouseX = coords.x - rect.left;
+        const mouseY = coords.y - rect.top;
+
+        const style = getComputedStyle(element);
+        const transform = style.transform;
+
+        const matrix = new DOMMatrix(transform);
+        const inverseMatrix = matrix.invertSelf();
+
+        const point = new DOMPoint(mouseX, mouseY);
+        const transformedPoint = point.matrixTransform(inverseMatrix);
+
+        return {
+            x: transformedPoint.x,
+            y: transformedPoint.y
+        };
+    }
+
+    function getMouseCoordinatesRelativeToElement(event, element = event.currentTarget) {
+        const clientRoot = event.touches ? event.touches[0] : event;
+        return getMouseCoordinatesRelativeToElementCoords({ x: clientRoot.clientX, y: clientRoot.clientY }, element)
+    }
+
+    function bilinearInterpolation(topLeft, topRight, bottomLeft, bottomRight, ratioX, ratioY) {
+        // Interpolate values along the top edge
+        const E = topLeft * (1 - ratioX) + topRight * ratioX;
+
+        // Interpolate values along the bottom edge
+        const F = bottomLeft * (1 - ratioX) + bottomRight * ratioX;
+
+        // Interpolate values between E and F
+        const G = E * (1 - ratioY) + F * ratioY;
+
+        return G;
+    }
+
+    function createTransform(ratioX, ratioY, over, time) {
+        const scale = 8
+
+        const mX = (ratioX - 0.5) * 2;
+        const mY = (ratioY - 0.5) * 2;
+
+        const rotateY = mX * scale;
+        const rotateX = -mY * scale;
+        //const rotateY = -mX * scale;
+
+        /*
+        const topLeft = { rotateX: scale, rotateY : -scale }
+        const topRight = { rotateX: scale, rotateY : scale }
+
+        const bottomLeft = { rotateX: -scale, rotateY : -scale }
+        const bottomRight = { rotateX: -scale, rotateY : scale }
+
+        const rotateX = bilinearInterpolation(topLeft.rotateX, topRight.rotateX, bottomLeft.rotateX, bottomRight.rotateX, ratioX, ratioY)
+        const rotateY = bilinearInterpolation(topLeft.rotateY, topRight.rotateY, bottomLeft.rotateY, bottomRight.rotateY, ratioX, ratioY)
+
+         */
+
+        return `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.1, 1.1, 1.1)`
+    }
+
+    document.querySelectorAll(".single-features").forEach((element) => {
+        // @type HTMLElement
+        const htmlElement = element;
+        const mouseMoveEvent = (e) => {
+            //console.log(e.touches)
+            //if (e.target != htmlElement) return
+            const { x, y } = getMouseCoordinatesRelativeToElement(e)
+            //var rect = e.target.getBoundingClientRect();
+            //var x = e.clientX - rect.left; //x position within the element.
+            //var y = e.clientY - rect.top;  //y position within the element.
+
+            const ratioX = Math.min(Math.max(x / htmlElement.offsetWidth, 0), 1)
+            const ratioY = Math.min(Math.max(y / htmlElement.offsetHeight, 0), 1)
+
+            //console.log(x, y, ratioX, ratioY)
+
+            //htmlElement.style.setProperty('--mouse-mX', (ratioX - 0.5) * 2);
+            //htmlElement.style.setProperty('--mouse-mY', (ratioY - 0.5) * 2);
+
+            htmlElement.style.transform = createTransform(ratioX, ratioY, true, 0)
+            htmlElement.style.zIndex = 10000;
+            //console.log(htmlElement.style.transform);
+        }
+        const mouseExit = (e) => {
+            htmlElement.style.transform = "inherit"
+            htmlElement.style.zIndex = 'inherit';
+        }
+
+        htmlElement.addEventListener('touchstart', mouseMoveEvent)
+        htmlElement.addEventListener('touchmove', mouseMoveEvent)
+        htmlElement.addEventListener('touchend', mouseExit)
+
+        htmlElement.addEventListener('mousemove', mouseMoveEvent)
+        htmlElement.addEventListener('mouseleave', mouseExit)
+
+        htmlElement.addEventListener('click', (e) => {
+            document.location = htmlElement.querySelector("a").href
+        })
+    })
+</script>
+

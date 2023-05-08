@@ -6,15 +6,15 @@ title: My Page
 {% assign pageLinkParts = page.link | remove_first: "https://" | split: "/" %}
 {% capture pageTitle %}github.com-{{ pageLinkParts[1] }}-{{ pageLinkParts[2] }}{% endcapture %}
 {% assign repotag = site.repotags | where:"title", pageTitle | first %}
-{% assign defaultTag = repotag.tags|first|first|first | default: "main" %}
+{% assign defaultTagP = repotag.tags|first|first %}
+{% assign defaultTag = defaultTagP|first | default: "main" %}
+{% assign defaultHash = defaultTagP|last | default: "main" %}
 
 <h1>{{ page.title }}</h1>
 
 <h2>
     Tags:
-
     {{ repotag.tags | inspect }}
-
 </h2>
 
 <h3>
@@ -24,7 +24,10 @@ title: My Page
 <p>
     {% capture treeReplace %}/tree/{{ defaultTag }}/{% endcapture %}
     {% assign link = page.link | replace: "/tree/main/", treeReplace %}
-    <a href="{{ link }}" target="_blank">{{ link }}</a>
+<pre style="background:#eee; padding: 8px 16px; border-radius: 8px;margin:8px;">
+dependencies:
+- <a href="{{ link }}" target="_blank">{{ link }}</a>##{{defaultHash}}
+</pre>
 </p>
 
 <img src="{{ page.icon }}" style="width:128px;" />
