@@ -3,16 +3,22 @@ layout: default
 title: My Page
 ---
 
-<h1>{{ page.title }}</h1>
+<div class="container">
+    <div class="row">
+        <div class="col">
+        <h1>{{ page.title }}</h1>
 
-<img src="{{ page.screenshot }}" style="height:128px;" />
+        <h3>
+            Repository: <a href="{{ page.repo }}" target="_blank">{{ page.repo }}</a>
+        </h3>
 
-<h3>
-    <a href="{{ page.repo }}" target="_blank">{{ page.repo }}</a>
-</h3>
+        <h2>
+            <a href="{{ page.repo }}/archive/refs/heads/main.zip" class="btn btn-primary">Download ZIP</a>
+        </h2>
 
-<h2>
-    <a href="{{ page.repo }}/archive/refs/heads/main.zip">Download ZIP</a>
-</h2>
+        <img src="{{ page.screenshot }}" style="max-height:400px;"/>
 
-{{ content }}
+        {{ content }}
+        </div>
+    </div>
+</div>
