@@ -1,6 +1,7 @@
 ---
 layout: module
 title: Shape Extensions
+authors: [korlibs]
 category: Geometry
 link: https://github.com/korlibs/korge-ext/tree/main/korge-shape-ext
 ---

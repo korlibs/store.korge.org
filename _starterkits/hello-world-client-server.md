@@ -1,6 +1,7 @@
 ---
 layout: starterkit
 title: Hello World Client Server
+authors: [korlibs]
 repo: https://github.com/korlibs/korge-hello-world-client-server
 branch: main
 enabled: true

@@ -5,20 +5,31 @@ title: My Page
 
 <div class="container">
     <div class="row">
-        <div class="col">
-        <h1>{{ page.title }}</h1>
+        <div class="col-md-3 order-2">
+            <h3>
+                Authors:
+            </h3>
+            <ul class="list-group">
+                {% for author in page.authors %}
+                <li class="list-group-item">
+                    <a href="https://github.com/{{ author}}" tatget="_blank" style="font-size: 1.25em;white-space: nowrap"><img src="https://github.com/{{ author}}.png" style="width:1em;height:1em;margin-top:-.2em;" />&nbsp;{{ author }}</a>
+                </li>{% endfor %}
+            </ul>
+        </div>
+        <div class="col-md-9">
+            <h1>{{ page.title }}</h1>
 
-        <h3>
-            Repository: <a href="{{ page.repo }}" target="_blank">{{ page.repo }}</a>
-        </h3>
+            <h3>
+                Repository: <a href="{{ page.repo }}" target="_blank">{{ page.repo }}</a>
+            </h3>
 
-        <h2>
-            <a href="{{ page.repo }}/archive/refs/heads/main.zip" class="btn btn-primary">Download ZIP</a>
-        </h2>
+            <h2>
+                <a href="{{ page.repo }}/archive/refs/heads/main.zip" class="btn btn-primary">Download ZIP</a>
+            </h2>
 
-        <img src="{{ page.screenshot }}" style="max-height:400px;"/>
+            <img src="{{ page.screenshot }}" style="max-height:400px;"/>
 
-        {{ content }}
+            {{ content }}
         </div>
     </div>
 </div>

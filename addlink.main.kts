@@ -86,6 +86,7 @@ if (!mainModuleFile.exists()) {
         ---
         layout: module
         title: ${PathInfo(path).baseName}
+        authors: [${org}]
         tags:
         link: https://github.com/$org/$repo/tree/main$path
         ---

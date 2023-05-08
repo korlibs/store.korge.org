@@ -1,6 +1,7 @@
 ---
 layout: module
 title: JPEG Encoding/Decoding
+authors: [korlibs]
 category: Image
 link: https://github.com/korlibs/korge-image-formats/tree/main/korim-jpeg
 icon: /i/jpeg.jpg

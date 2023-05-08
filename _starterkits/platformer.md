@@ -1,6 +1,7 @@
 ---
 layout: starterkit
 title: Platformer Starter Kit
+authors: [korlibs]
 repo: https://github.com/korlibs/korge-starter-kit-platformer
 screenshot: https://github.com/korlibs/korge-starter-kit-platformer/raw/main/screenshots/screenshot.png
 branch: main

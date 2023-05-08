@@ -15,7 +15,17 @@ title: My Page
         <h1>{{ page.title }}</h1>
     </div>
     <div class="row ">
-        <div class="col-2 order-2">
+        <div class="col-3 order-2">
+            <h3>
+                Authors:
+            </h3>
+            <ul class="list-group">
+                {% for author in page.authors %}
+                <li class="list-group-item">
+                    <a href="https://github.com/{{ author}}" tatget="_blank" style="font-size: 1.25em;white-space: nowrap"><img src="https://github.com/{{ author}}.png" style="width:1em;height:1em;margin-top:-.2em;" />&nbsp;{{ author }}</a>
+                </li>{% endfor %}
+            </ul>
+
             <h2>
                 Tags:
             </h2>
@@ -27,7 +37,7 @@ title: My Page
                 {% endfor %}
             </ul>
         </div>
-        <div class="col-10">
+        <div class="col-9">
             <img src="{{ page.icon }}" style="width:128px;" />
         <p>
             {% capture treeReplace %}/tree/{{ defaultTag }}/{% endcapture %}
