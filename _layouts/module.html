@@ -10,31 +10,90 @@ title: My Page
 {% assign defaultTag = defaultTagP|first | default: "main" %}
 {% assign defaultHash = defaultTagP|last | default: "main" %}
 
-<h1>{{ page.title }}</h1>
-
-<h2>
-    Tags:
-    {{ repotag.tags | inspect }}
-</h2>
-
-<h3>
-
-</h3>
-
-<p>
-    {% capture treeReplace %}/tree/{{ defaultTag }}/{% endcapture %}
-    {% assign link = page.link | replace: "/tree/main/", treeReplace %}
+<div class="container">
+    <div class="row">
+        <h1>{{ page.title }}</h1>
+    </div>
+    <div class="row ">
+        <div class="col-2 order-2">
+            <h2>
+                Tags:
+            </h2>
+            <ul>
+                {% for tag in repotag.tags %}
+                {% for t in tag %}
+                <li><a href="#{{t|first}}" class="tagref">{{ t | first }}</a></li>
+                {% endfor %}
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col-10">
+            <img src="{{ page.icon }}" style="width:128px;" />
+        <p>
+            {% capture treeReplace %}/tree/{{ defaultTag }}/{% endcapture %}
+            {% assign link = page.link | replace: "/tree/main/", treeReplace %}
 <pre style="background:#eee; padding: 8px 16px; border-radius: 8px;margin:8px;">
 dependencies:
-- <a href="{{ link }}" target="_blank">{{ link }}</a>##{{defaultHash}}
+- <span
+    class="codechunk"
+    data-link="{{ page.link }}"
+><a href="{{ link }}" target="_blank">{{ link }}</a>##{{defaultHash}}</span>
 </pre>
-</p>
+        </p>
 
-<img src="{{ page.icon }}" style="width:128px;" />
+        {{ content }}
 
-{{ content }}
+        </div>
+
+    </div>
+</div>
+
+<style>
+.tagref.selected {
+    font-weight: bold;
+}
+</style>
 
 <script>
+    const cannonicalUrl = {{ page.link | jsonify }};
+    const defaultTag = {{ defaultTag | jsonify }};
+    let currentTag = defaultTag;
+    const tags = {
+        {% for tag in repotag.tags -%}
+        {% for t in tag -%}
+        {{t|first|jsonify}}: {{t|last|jsonify}},
+        {%- endfor %}
+        {% endfor %}
+    };
+
+    function updateTags() {
+        document.querySelectorAll(".tagref").forEach((it) => {
+            if (it.textContent === currentTag) {
+                it.classList.add("selected")
+            } else {
+                it.classList.remove("selected")
+            }
+        })
+    }
+
+    function updatedUrl() {
+        let tag = document.location.href.split('#')[1]
+        if (tag === undefined || tag === '') tag = defaultTag;
+        currentTag = tag
+        const commitId = tags[tag]
+        console.log(tag, commitId)
+        const url = cannonicalUrl.replace(/\/tree\/main\//, `/tree/${tag}/`)
+        document.querySelector(".codechunk").innerHTML = `<a href="${url}" target="_blank">${url}</a>##${commitId}`
+        updateTags()
+    }
+
+    updatedUrl()
+
+    window.onpopstate = function(event) {
+        updatedUrl()
+    };
+
+
     /*
     async function downloadGithubFile(org, repo, ref, path) {
         const result = await fetch(`https://api.github.com/repos/${org}/${repo}/contents/${path}?ref=${ref}`)
