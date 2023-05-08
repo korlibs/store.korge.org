@@ -12,4 +12,34 @@ title: My Page
     <a href="{{ link }}" target="_blank">{{ link }}</a>
 </p>
 
+<img src="{{ page.icon }}" style="width:128px;" />
+
 {{ content }}
+
+<script>
+    async function downloadGithubFile(org, repo, ref, path) {
+        const result = await fetch(`https://api.github.com/repos/${org}/${repo}/contents/${path}?ref=${ref}`)
+        const json = await result.json()
+        return atob(json.content.trim())
+    }
+
+    (async () => {
+        //const content = await downloadGithubFile('korlibs', 'korge-jitto', '0.0.4', '/korge-jitto/README.md')
+        const content = await downloadGithubFile('korlibs', 'korge-jitto', '0.0.4', '/korge-jitto/kproject.yml')
+        const div = document.createElement("div")
+        div.innerText = `${content}`
+        document.body.appendChild(div)
+    })();
+
+    /*
+    (async () => {
+        const result = await fetch("https://api.github.com/repos/korlibs/korge-dragonbones/tags")
+        const json = await result.json()
+        console.log(json)
+        const div = document.createElement("div")
+        div.innerText = `${JSON.stringify(json)}`
+        document.body.appendChild(div)
+    })();
+
+     */
+</script>
