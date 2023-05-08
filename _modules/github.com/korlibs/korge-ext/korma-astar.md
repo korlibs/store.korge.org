@@ -1,5 +1,6 @@
 ---
 layout: module
-title: korma-astar
+title: A* Pathfinding
+category: Geometry
 link: https://github.com/korlibs/korge-ext/tree/main/korma-astar
 ---

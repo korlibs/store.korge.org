@@ -3,19 +3,27 @@ layout: default
 title: My Page
 ---
 
-<p>
-    {% assign pageLinkParts = page.link | remove_first: "https://" | split: "/" %}
-    {% capture pageTitle %}github.com-{{ pageLinkParts[1] }}-{{ pageLinkParts[2] }}{% endcapture %}
-    {% assign repotag = site.repotags | where:"title", pageTitle | first %}
-    {{ repotag.tags | inspect }}
-</p>
+{% assign pageLinkParts = page.link | remove_first: "https://" | split: "/" %}
+{% capture pageTitle %}github.com-{{ pageLinkParts[1] }}-{{ pageLinkParts[2] }}{% endcapture %}
+{% assign repotag = site.repotags | where:"title", pageTitle | first %}
+{% assign defaultTag = repotag.tags|first|first|first %}
 
 <h1>{{ page.title }}</h1>
-{% assign tags = page.tags %}
-<h2>Tags: {% for tag in tags %}{% for t in tag %}{{ t[0] }}, {% endfor %}{% endfor %}</h2>
+
+<h2>
+    Tags:
+
+    {{ repotag.tags | inspect }}
+
+</h2>
+
+<h3>
+
+</h3>
 
 <p>
-    {% assign link = page.link | replace: "/tree/main/", "/tree/0.0.1/" %}
+    {% capture treeReplace %}/tree/{{ defaultTag }}/{% endcapture %}
+    {% assign link = page.link | replace: "/tree/main/", treeReplace %}
     <a href="{{ link }}" target="_blank">{{ link }}</a>
 </p>
 
@@ -24,6 +32,7 @@ title: My Page
 {{ content }}
 
 <script>
+    /*
     async function downloadGithubFile(org, repo, ref, path) {
         const result = await fetch(`https://api.github.com/repos/${org}/${repo}/contents/${path}?ref=${ref}`)
         const json = await result.json()
@@ -37,6 +46,7 @@ title: My Page
         div.innerText = `${content}`
         document.body.appendChild(div)
     })();
+     */
 
     /*
     (async () => {
