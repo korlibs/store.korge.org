@@ -1,0 +1,15 @@
+---
+layout: default
+title: My Page
+---
+
+<h1>{{ page.title }}</h1>
+{% assign tags = page.tags %}
+<h2>Tags: {% for tag in tags %}{% for t in tag %}{{ t[0] }}, {% endfor %}{% endfor %}</h2>
+
+<p>
+    {% assign link = page.link | replace: "/tree/main/", "/tree/0.0.1/" %}
+    <a href="{{ link }}" target="_blank">{{ link }}</a>
+</p>
+
+{{ content }}

@@ -1,4 +1,5 @@
 ---
+layout: starterkit
 title: Point & Click Adventure Starter Kit
 repo: https://github.com/korlibs/korge-starter-kit-pointandclickadventure
 branch: main

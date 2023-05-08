@@ -3,10 +3,16 @@ layout: default
 title: KorGE Store
 ---
 
-Coming soon...
-
+<h1>Starter Kits</h1>
 <ul>
 {% for kit in site.starterkits %}
-<li>{{ kit.title }}</li>
+    <li><a href="{{ kit.url }}">{{ kit.title }}</a></li>
 {% endfor %}
+</ul>
+
+<h1>Modules</h1>
+<ul>
+    {% for module in site.modules %}
+    <li><a href="{{ module.url }}">{{ module.title }}</a></li>
+    {% endfor %}
 </ul>

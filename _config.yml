@@ -7,3 +7,9 @@ markdown: kramdown
 collections:
   starterkits:
     sort_by: order
+    output: true
+    permalink: /starterkits/:title/
+  modules:
+    sort_by: order
+    output: true
+    permalink: /module/:title/
