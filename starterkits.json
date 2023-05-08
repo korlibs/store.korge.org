@@ -9,7 +9,7 @@ layout: null
     "branch": {{ kit.branch | jsonify }},
     "enabled": {{ kit.enabled | jsonify }},
     "screenshot": {{ kit.screenshot | jsonify }},
-    "description": {{ kit.content | raw | markdownify | jsonify }},
+    "description": {{ kit.content | raw | jsonify }}
   }
   {%- if forloop.last == false -%},{%- endif -%}
 

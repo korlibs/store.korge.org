@@ -1,0 +1,12 @@
+---
+layout: null
+---
+[
+  {% for version in site.versions -%}
+  {
+    "version": {{ version.version | jsonify }}
+  }
+  {%- if forloop.last == false -%},{%- endif -%}
+
+{%- endfor %}
+]

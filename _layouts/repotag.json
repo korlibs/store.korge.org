@@ -1,0 +1,14 @@
+---
+layout: null
+---
+[
+  {% for tag in page.tags -%}
+  {% for t in tag -%}
+  {
+    "ref": {{ t[0] | jsonify }},
+    "commit": {{ t[1] | jsonify }},
+  }
+  {%- endfor %}
+  {%- if forloop.last == false -%},{%- endif -%}
+  {% endfor %}
+]

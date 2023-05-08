@@ -5,6 +5,8 @@ url: ""
 markdown: kramdown
 
 collections:
+  versions:
+    sort_by: order
   starterkits:
     sort_by: order
     output: true
@@ -13,3 +15,7 @@ collections:
     sort_by: order
     output: true
     permalink: /module/:title/
+  repotags:
+    sort_by: order
+    output: true
+    permalink: /repotags/:title.json
