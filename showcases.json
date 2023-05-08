@@ -1,7 +1,7 @@
 ---
 layout: null
 ---
-{%- assign kits = site.starterkits | sort: "order" -%}
+{%- assign kits = site.showcases | sort: "order" -%}
 [
   {% for kit in kits -%}
   {

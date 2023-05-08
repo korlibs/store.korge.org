@@ -6,7 +6,7 @@ title: KorGE Store Ecosystem (Assets, Modules & Libraries)
 
 <div class="container">
     <div class="row">
-        <h1>Starter Kits (<a href="/starterkits.json" target="_blank"><code>starterkits.json</code></a>)</h1>
+        <h1>Starter Kits<a href="/starterkits.json" target="_blank"><code>.json</code></a></h1>
     </div>
 
 <!--
@@ -38,17 +38,30 @@ title: KorGE Store Ecosystem (Assets, Modules & Libraries)
 </div>
 -->
     <div class="jumbotron" style="padding: 1rem 2rem;">
-
-    <div class="row">
-
-        {% assign starterkits = site.starterkits | sort: "order" %}
-        {% for kit in starterkits %}
-        {% if kit.enabled %}
-            {% include card.html title=kit.title screenshot=kit.screenshot url=kit.url %}
-        {% endif %}
-        {% endfor %}
+        <div class="row">
+            {% assign kits = site.starterkits | sort: "order" %}
+            {% for kit in kits %}
+            {% if kit.enabled %}
+                {% include card.html title=kit.title screenshot=kit.screenshot url=kit.url %}
+            {% endif %}
+            {% endfor %}
+        </div>
     </div>
+</div>
 
+<div class="container">
+    <div class="row">
+        <h1>Showcases<a href="/showcases.json" target="_blank"><code>.json</code></a></h1>
+    </div>
+    <div class="jumbotron" style="padding: 1rem 2rem;">
+        <div class="row">
+            {% assign kits = site.showcases | sort: "order" %}
+            {% for kit in kits %}
+            {% if kit.enabled %}
+            {% include card.html title=kit.title screenshot=kit.screenshot url=kit.url %}
+            {% endif %}
+            {% endfor %}
+        </div>
     </div>
 </div>
 
