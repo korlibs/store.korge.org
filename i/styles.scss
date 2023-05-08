@@ -1,0 +1,105 @@
+---
+---
+
+:root {
+  --bg-color: white;
+  --text-color: #212529;
+  --link-color: #0d6efd;
+  --link-color-hover: #0c5acc;
+  --border-color: rgba(0, 0, 0, 0.125);
+}
+
+body {
+  /*background: url('/i/bg1.jpg');*/
+  background-color: var(--bg-color);
+  background-attachment: fixed;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-color: #2B2B2B;
+    --text-color: #BABABA;
+    --border-color: rgba(255, 255, 255, 0.125);
+    --link-color: #6897BB;
+    --link-color-hover: #2b75b0;
+  }
+}
+
+[data-theme="intellij"] {
+  --bg-color: #3C3F41;
+  --text-color: #BABABA;
+  --border-color: rgba(255, 255, 255, 0.125);
+  --link-color: #6897BB;
+  --link-color-hover: #2b75b0;
+  h1 {
+    background: linear-gradient(-0deg, #fff, #fff, #fff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
+
+body {
+  cursor: default;
+  overflow-y: scroll;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+a {
+  color: var(--link-color);
+  text-decoration: none;
+  &:hover {
+    color: var(--link-color-hover);
+  }
+}
+/*
+div#main-content {
+  width: 800px;
+  padding: 1em;
+  max-width: 100%;
+}
+*/
+header {
+  h1 {
+    background: linear-gradient(-0deg, #000, #222, #AAA);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0px 2px 4px rgba(100,100,100,0.5);
+    color: #767676;
+    font-family: Spartan, Arial, serif;
+    font-size: 48px;
+    font-weight: 600;
+    text-align: left;
+    width: 100%;
+    margin: 1em auto 0.5em auto;
+  }
+
+  input[type=search] {
+    width: 100% !important;
+    border-radius: 8px;
+    background: url(i/magnifier.svg) no-repeat scroll 0.5em center;
+    background-size: 1.3em 1.3em;
+
+    border: solid 1px #8412b6;
+    box-shadow: 0 2px 4px rgba(123,22,158,0.5);
+    transition: all 0.2s;
+
+    font-family: Spartan, Arial, serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 17px;
+    padding: 0.75em 2.5em;
+    outline: none;
+    color: var(--text-color);
+    &::placeholder {
+      color: #c99ebe;
+    }
+    &:focus {
+      outline: none;
+      border: solid 1px #a00ae3;
+      box-shadow: 0 2px 8px rgba(155, 23, 200, 0.5);
+      transition: all 0.2s;
+    }
+  }
+}

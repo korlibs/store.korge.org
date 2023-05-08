@@ -12,7 +12,6 @@
     <link rel="shortcut icon" href="/i/favicon.png" type="image/png">
 
     <link rel="stylesheet" href="/i/css/bootstrap.css">
-    <link rel="stylesheet" href="/i/styles.css">
 
     <link rel="icon" href="/i/icon.png" />
     <script src="/i/jquery-3.6.4.min.js" type="text/javascript"></script>
@@ -20,9 +19,15 @@
 
     <link href="/i/fontawesome/css/all.css" rel="stylesheet">
 
+    <link rel="stylesheet" href="/i/styles.css?v2">
 </head>
 
 <body>
+<script>
+    if (window.insideKorgeIntellij) {
+        document.body.setAttribute("data-theme", "intellij")
+    }
+</script>
 <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top" style="box-shadow: 0 3px 10px rgba(0,0,0,0.1);background-color: #ececec !important;">
     <a class="navbar-brand" href="/"><img src="/i/logo.svg" style="height:1.5em;margin-top:-5px;margin-right:4px;" />KorGE Store</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">

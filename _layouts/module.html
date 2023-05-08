@@ -9,6 +9,28 @@ title: My Page
 {% assign defaultTagP = repotag.tags|first|first %}
 {% assign defaultTag = defaultTagP|first | default: "main" %}
 {% assign defaultHash = defaultTagP|last | default: "main" %}
+{% capture treeReplace %}/tree/{{ defaultTag }}/{% endcapture %}
+{% assign link = page.link | replace: "/tree/main/", treeReplace %}
+
+<script>
+    const moduleEntry = {
+        "cannonicalUrl": {{ page.link | absolute_url | jsonify }},
+        "title": {{ page.title | jsonify }},
+        "icon": {{ page.icon | absolute_url | jsonify }},
+        "authors": {{ page.authors | default: "[korlibs]" | jsonify }},
+    };
+    const cannonicalUrl = {{ page.link | jsonify }};
+    const defaultTag = {{ defaultTag | jsonify }};
+    let currentCommitId = 'main';
+    let currentUrl = cannonicalUrl;
+    const tags = {
+        {% for tag in repotag.tags -%}
+        {% for t in tag -%}
+        {{t|first|jsonify}}: {{t|last|jsonify}},
+        {%- endfor %}
+        {% endfor %}
+    };
+</script>
 
 <div class="container">
     <div class="row">
@@ -39,8 +61,6 @@ title: My Page
         <div class="col-9">
             <img src="{{ page.icon }}" style="width:128px;" />
         <p>
-            {% capture treeReplace %}/tree/{{ defaultTag }}/{% endcapture %}
-            {% assign link = page.link | replace: "/tree/main/", treeReplace %}
 <pre style="background:#eee; padding: 8px 16px; border-radius: 8px;margin:8px;">
 dependencies:
 - <span
@@ -48,6 +68,7 @@ dependencies:
     data-link="{{ page.link }}"
 ><a href="{{ link }}" target="_blank">{{ link }}</a>##{{defaultHash}}</span>
 </pre>
+            <a id="get-code-button" class="add-to-intellij btn btn-primary" style="display: none" href="#">+ Add to IntelliJ</a>
         </p>
 
         {{ content }}
@@ -64,16 +85,14 @@ dependencies:
 </style>
 
 <script>
-    const cannonicalUrl = {{ page.link | jsonify }};
-    const defaultTag = {{ defaultTag | jsonify }};
     let currentTag = defaultTag;
-    const tags = {
-        {% for tag in repotag.tags -%}
-        {% for t in tag -%}
-        {{t|first|jsonify}}: {{t|last|jsonify}},
-        {%- endfor %}
-        {% endfor %}
-    };
+
+    function getUrlForTag(tag) {
+        if (tag === undefined || tag === '') tag = defaultTag;
+        const commitId = tags[tag]
+        const url = cannonicalUrl.replace(/\/tree\/main\//, `/tree/${tag}/`)
+        return {url, commitId}
+    }
 
     function updateTags() {
         document.querySelectorAll(".tagref").forEach((it) => {
@@ -89,10 +108,11 @@ dependencies:
     function updatedUrl() {
         let tag = document.location.href.split('#')[1]
         if (tag === undefined || tag === '') tag = defaultTag;
+        const {commitId,url} = getUrlForTag(tag)
         currentTag = tag
-        const commitId = tags[tag]
-        console.log(tag, commitId)
-        const url = cannonicalUrl.replace(/\/tree\/main\//, `/tree/${tag}/`)
+        currentUrl = url;
+        currentCommitId = commitId;
+        //console.log(tag, commitId)
         document.querySelector(".codechunk").innerHTML = `<a href="${url}" target="_blank">${url}</a>##${commitId}`
         updateTags()
     }
@@ -131,4 +151,44 @@ dependencies:
     })();
 
      */
+</script>
+
+<script>
+    //alert([...document.querySelectorAll(".bundle-entry")])
+
+    async function getKProjectDependencies() {
+        return window?.jcefFunctions?.getKProjectDependencies?.({})
+    }
+
+    async function init() {
+        if (!window?.jcefFunctions?.installKProjectDependency) return
+
+        const plugins = (await getKProjectDependencies()) || {}
+
+        const installed = !!plugins[cannonicalUrl]
+
+        const getCodeButton = document.getElementById("get-code-button")
+
+        console.log(getCodeButton)
+        if (getCodeButton) {
+            getCodeButton.style.display = "block"
+            const url = currentUrl;
+            const title = moduleEntry.title;
+            const icon = moduleEntry.icon;
+            const author = (moduleEntry.authors || []).join(", ");
+
+            getCodeButton.textContent = installed ? "Installed" : "Install to IntelliJ";
+            getCodeButton.classList.toggle('disabled', installed)
+
+            getCodeButton.onclick = async (e) => {
+                const result = await window.jcefFunctions.installKProjectDependency({
+                    url, title, author, icon
+                })
+                init() // reinit
+                return false
+            }
+        }
+    }
+
+    init()
 </script>
