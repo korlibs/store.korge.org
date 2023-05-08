@@ -1,0 +1,17 @@
+---
+layout: null
+---
+[
+  {% for kit in site.starterkits -%}
+  {
+    "title": {{ kit.title | jsonify }},
+    "repo": {{ kit.repo | jsonify }},
+    "branch": {{ kit.branch | jsonify }},
+    "enabled": {{ kit.enabled | jsonify }},
+    "screenshot": {{ kit.screenshot | jsonify }},
+    "description": {{ kit.content | raw | markdownify | jsonify }},
+  }
+  {%- if forloop.last == false -%},{%- endif -%}
+
+{%- endfor %}
+]
