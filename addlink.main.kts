@@ -47,22 +47,6 @@ if (args.isEmpty()) {
     System.exit(-1)
 }
 
-val url = args[0]
-val match = GITHUB_TREE_URL_REGEX.matchEntire(url) ?: error("URL '$url' doesn't match <$GITHUB_TREE_URL_REGEX>")
-
-val org = PathInfo(match.groupValues[1]).baseName
-val repo = PathInfo(match.groupValues[2]).baseName
-val ref = PathInfo(match.groupValues[3]).baseName
-val path = "/" + PathInfo(match.groupValues[4]).normalize()
-
-
-println("org: $org, repo: $repo, ref: $ref, path: $path")
-
-val mainModuleFile = File("./_modules/github.com/$org/$repo/$path.md")
-val repotagsFile = File("./_repotags/github.com/$org/$repo/github.com-$org-$repo.json")
-
-println("file: $mainModuleFile")
-
 fun getRepoUrl(org: String, repo: String): String {
     return "https://github.com/$org/$repo.git"
 }
@@ -85,8 +69,6 @@ fun ensureGitRepo(org: String, repo: String): File {
         .start().waitFor()
     return localGitRepoFolder
 }
-
-ensureGitRepo(org, repo)
 
 data class TagInfo(
     val commitId: String,
@@ -155,27 +137,48 @@ fun addTagToMap(data: MutableMap<String, Any?>, vtag: TagInfo) {
     println(" -> ${dates[vtag.commitId]}")
 }
 
-if (!mainModuleFile.exists()) {
-    mainModuleFile.parentFile.mkdirs()
-    mainModuleFile.writeText("""
+for (url in args) {
+    val match = GITHUB_TREE_URL_REGEX.matchEntire(url) ?: error("URL '$url' doesn't match <$GITHUB_TREE_URL_REGEX>")
+
+    val org = PathInfo(match.groupValues[1]).baseName
+    val repo = PathInfo(match.groupValues[2]).baseName
+    val ref = PathInfo(match.groupValues[3]).baseName
+    val path = "/" + PathInfo(match.groupValues[4]).normalize()
+
+    println("org: $org, repo: $repo, ref: $ref, path: $path")
+
+    val mainModuleFile = File("./_modules/github.com/$org/$repo/$path.md")
+    val repotagsFile = File("./_repotags/github.com/$org/$repo/github.com-$org-$repo.json")
+
+    println("file: $mainModuleFile")
+
+    ensureGitRepo(org, repo)
+
+    if (!mainModuleFile.exists()) {
+        mainModuleFile.parentFile.mkdirs()
+        mainModuleFile.writeText(
+            """
         ---
         layout: module
         title: ${PathInfo(path).baseName}
         authors: [${org}]
         link: https://github.com/$org/$repo/tree/main$path
         ---
-    """.trimIndent())
-}
-if (!repotagsFile.exists()) {
-    repotagsFile.parentFile.mkdirs()
-    repotagsFile.writeText("""
+    """.trimIndent()
+        )
+    }
+    if (!repotagsFile.exists()) {
+        repotagsFile.parentFile.mkdirs()
+        repotagsFile.writeText(
+            """
         ---
         layout: repotag
         title: github.com-$org-$repo
         tags:
         ---
-    """.trimIndent())
-}
+    """.trimIndent()
+        )
+    }
 
 //for (file in File("_modules").walkTopDown()) {
 //    if (file.name.endsWith(".md")) {
@@ -187,15 +190,14 @@ if (!repotagsFile.exists()) {
 //}
 //System.exit(-1)
 
-val data = extractFrontMatter(repotagsFile)
-data["tags"] = arrayListOf<Any?>()
-data["dates"] = mutableMapOf<String, String>()
-for (tag in getRepoTags(org, repo)) {
-    addTagToMap(data, tag)
+    val data = extractFrontMatter(repotagsFile)
+    data["tags"] = arrayListOf<Any?>()
+    data["dates"] = mutableMapOf<String, String>()
+    for (tag in getRepoTags(org, repo)) {
+        addTagToMap(data, tag)
+    }
+    updateFrontMatter(repotagsFile, data)
 }
-updateFrontMatter(repotagsFile, data)
-
-
 
 //file.writer().use {
 //    yaml.dump(data, it) // Save the modified data structure with original formatting
