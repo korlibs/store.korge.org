@@ -7,7 +7,7 @@ layout: null
   {% capture zip %}{{ kit.repo }}/archive/refs/heads/{{ kit.branch }}.zip{% endcapture %}
   {
     "title": {{ kit.title | jsonify }},
-    "authors": {{ kind.authors | jsonify }},
+    "authors": {{ kit.authors | jsonify }},
     "repo": {{ kit.repo | jsonify }},
     "zip": {{ zip | jsonify }},
     "branch": {{ kit.branch | jsonify }},
