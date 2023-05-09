@@ -10,6 +10,8 @@ icon: https://github.com/korlibs/korge-free-assets/blob/0.0.1/finalbossblues-evi
 Includes a Vampire and a Vamp spritesheet in .ASE format
 and code to load it.
 
+Sprites from: <https://finalbossblues.com/timefantasy/freebies/evil-transforming-vampires/>
+
 ```kotlin
 val atlas = MutableAtlasUnit(2048, 2048)
 val characters = EvilTransformingVampires.readImages(atlas)
