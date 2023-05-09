@@ -9,7 +9,7 @@ kinds:
 {%- assign kits = site[kind.id] | sort: "order" -%}
 {%- assign lastKind = forloop.last -%}
 {% for kit in kits -%}
-{% capture zip %}{{ kit.repo }}/archive/refs/heads/{{ kit.branch }}.zip{% endcapture %}
+{% capture zip %}{{ kit.repo }}/archive/{{ kit.branch }}.zip{% endcapture %}
   {
     "title": {{ kit.title | jsonify }},
     "category": {{ kind.name | jsonify }},

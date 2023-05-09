@@ -4,7 +4,7 @@ layout: null
 {%- assign kits = site.starterkits | sort: "order" -%}
 [
   {% for kit in kits -%}
-  {% capture zip %}{{ kit.repo }}/archive/refs/heads/{{ kit.branch }}.zip{% endcapture %}
+  {% capture zip %}{{ kit.repo }}/archive/{{ kit.branch }}.zip{% endcapture %}
   {
     "title": {{ kit.title | jsonify }},
     "authors": {{ kit.authors | jsonify }},
