@@ -8,7 +8,7 @@ To contribute fork this repository, then execute (changing the URL):
 
 That will create the proper entry, will download the tags and commitIds.
 
-Now you can try the store locally with (you will need to have `jekyllrb` installed):
+Now you can try the store locally with (you will need to have [`jekyllrb` installed](https://jekyllrb.com/docs/installation/)):
 
 ```bash
 ./start.sh
