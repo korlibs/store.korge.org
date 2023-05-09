@@ -1,0 +1,27 @@
+---
+layout: null
+kinds:
+- { id: "starterkits", name: "Starter Kits" }
+- { id: "showcases", name: "Showcases" }
+---
+[
+{%- for kind in page.kinds -%}
+{%- assign kits = site[kind.id] | sort: "order" -%}
+{%- assign lastKind = forloop.last -%}
+{% for kit in kits -%}
+{% capture zip %}{{ kit.repo }}/archive/refs/heads/{{ kit.branch }}.zip{% endcapture %}
+{
+"title": {{ kit.title | jsonify }},
+"category": {{ kind.name | jsonify }},
+"repo": {{ kit.repo | jsonify }},
+"zip": {{ zip | jsonify }},
+"branch": {{ kit.branch | jsonify }},
+"enabled": {{ kit.enabled | jsonify }},
+"screenshot": {{ kit.screenshot | jsonify }},
+"description": {{ kit.content | raw | jsonify }}
+}
+{%- if forloop.last and lastKind -%}{% else %},{%- endif -%}
+
+{%- endfor %}
+{%- endfor -%}
+]
