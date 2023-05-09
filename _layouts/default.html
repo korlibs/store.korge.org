@@ -39,21 +39,18 @@
             <li class="nav-item active">
                 <a class="nav-link" href="/">Home</a>
             </li>
-            <li class="nav-item hide-intellij">
+            <li class="nav-item">
                 <a class="nav-link" href="https://korge.myspreadshop.com/" target="_blank">Merch</a>
             </li>
-            <li class="nav-item hide-intellij">
+            <li class="nav-item ">
                 <a class="nav-link" href="https://docs.korge.org/" target="_blank">Docs</a>
             </li>
-            <li class="nav-item hide-intellij">
+            <li class="nav-item">
                 <a class="nav-link" href="https://blog.korge.org/" target="_blank">Blog</a>
             </li>
-            <li class="nav-item hide-intellij">
+            <li class="nav-item">
                 <a class="nav-link" href="https://korge.org/" target="_blank">Landing</a>
             </li>
-            <form class="form-inline">
-                <a target="_blank" href="https://github.com/korlibs/store.korge.org#korge-store" class="btn btn-outline-success" type="button">+ Add</a>
-            </form>
             <!--
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
@@ -71,15 +68,29 @@
             </li>
             -->
         </ul>
+        <form class="form-inline">
+            <a target="_blank" href="https://github.com/korlibs/store.korge.org#korge-store" class="btn btn-outline-success" type="button">+ Add</a>
+        </form>
+        <!--
         <form class="d-flex">
             <input class="form-control mr-2" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-success" type="submit">Search</button>
         </form>
+        -->
     </div>
 </nav>
 
 <div id="main-content">
     <div style="padding-top:22px;">
+
+        <div id="debug-box"></div>
+        <script>
+            if (/^http:\/\/(127\.0\.0\.1|localhost)/.test(document.location.href)) {
+                document.getElementById("debug-box").textContent = document.location.href
+            }
+        </script>
+
+
         {{content}}
     </div>
 </div>

@@ -148,44 +148,47 @@ dependencies:
 
             //alert(2)
 
-            getCodeButton.onclick = async (e) => {
-                //alert(1)
-                const url = currentUrl;
-                const title = moduleEntry.title;
-                const icon = moduleEntry.icon;
-                const author = (moduleEntry.authors || []).join(", ");
-                const html = `<html>
-                    <head>
-                        <style>
-                        :root {
-                            --bgcolor: #3c3f41ff;
-                            --labelcolor: #bbbbbbff;
-                        }
-                        body {
-                            background: var(--bgcolor);
-                            color: var(--labelcolor);
-                            font: 14px Arial;
-                        }
-                        p {
-                            margin: 0; padding: 0;
-                        }
-                        </style>
-                    </head>
-                    <body>
-                        <${'script>'}
-                        //setTimeout(() => { alert(document.head.innerHTML) }, 100)
-                        </${'script>'}
-                        <p><strong>Title:</strong> ${htmlspecialchars(title)}</p>
-                        <p><strong>Author:</strong> ${htmlspecialchars(author)}</p>
-                        <p><strong>URL:</strong> ${htmlspecialchars(url)}</p>
-                        <img src="${htmlspecialchars(icon)}" style="max-height:calc(100vh - 4em);">
-                    </body>
-                </html>`
+            getCodeButton.onclick = (e) => {
+                (async () => {
+                    //alert(1)
+                    const url = currentUrl;
+                    const title = moduleEntry.title;
+                    const icon = moduleEntry.icon;
+                    const author = (moduleEntry.authors || []).join(", ");
+                    const html = `<html>
+                        <head>
+                            <style>
+                            :root {
+                                --bgcolor: #3c3f41ff;
+                                --labelcolor: #bbbbbbff;
+                            }
+                            body {
+                                background: var(--bgcolor);
+                                color: var(--labelcolor);
+                                font: 14px Arial;
+                            }
+                            p {
+                                margin: 0; padding: 0;
+                            }
+                            </style>
+                        </head>
+                        <body>
+                            <${'script>'}
+                            //setTimeout(() => { alert(document.head.innerHTML) }, 100)
+                            </${'script>'}
+                            <p><strong>Title:</strong> ${htmlspecialchars(title)}</p>
+                            <p><strong>Author:</strong> ${htmlspecialchars(author)}</p>
+                            <p><strong>URL:</strong> ${htmlspecialchars(url)}</p>
+                            <img src="${htmlspecialchars(icon)}" style="max-height:calc(100vh - 4em);">
+                        </body>
+                    </html>`
 
-                const result = await window.jcefFunctions.installKProjectDependency({
-                    url, removeUrl, title, author, icon, html
-                })
-                initChecked() // reinit
+                    await window.jcefFunctions.installKProjectDependency({
+                        url, removeUrl, title, author, icon, html
+                    })
+                    initChecked() // reinit
+                })()
+
                 return false
             }
         }
