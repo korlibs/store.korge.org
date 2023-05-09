@@ -7,6 +7,9 @@ link: https://github.com/korlibs/korge-free-assets/tree/main/finalbossblues-evil
 icon: https://github.com/korlibs/korge-free-assets/blob/0.0.1/finalbossblues-evil-transforming-vampires/icon.png?raw=true
 ---
 
+Includes a Vampire and a Vamp spritesheet in .ASE format
+and code to load it.
+
 ```kotlin
 val atlas = MutableAtlasUnit(2048, 2048)
 val characters = EvilTransformingVampires.readImages(atlas)
