@@ -83,7 +83,11 @@
 <div id="main-content">
     <div style="padding-top:22px;">
 
-        <div id="debug-box"></div>
+        <div class="container">
+            <div class="row">
+                <div id="debug-box" style="margin-bottom: 22px;"></div>
+            </div>
+        </div>
         <script>
             if (/^http:\/\/(127\.0\.0\.1|localhost)/.test(document.location.href)) {
                 document.getElementById("debug-box").textContent = document.location.href
