@@ -19,16 +19,17 @@
 
     <link href="/i/fontawesome/css/all.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="/i/styles.css?v2">
+    <link rel="stylesheet" href="/i/styles.css?v3">
 </head>
 
 <body>
 <script>
     if (window.insideKorgeIntellij) {
         document.body.setAttribute("data-theme", "intellij")
+        document.body.classList.add("intellij")
     }
 </script>
-<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top" style="box-shadow: 0 3px 10px rgba(0,0,0,0.1);background-color: #ececec !important;">
+<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top" style="background-color: rgba(255, 255, 255, 0.3) !important; backdrop-filter: blur(5px)">
     <a class="navbar-brand" href="/"><img src="/i/logo.svg" style="height:1.5em;margin-top:-5px;margin-right:4px;" />KorGE Store</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -38,16 +39,16 @@
             <li class="nav-item active">
                 <a class="nav-link" href="/">Home</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item hide-intellij">
                 <a class="nav-link" href="https://korge.myspreadshop.com/" target="_blank">Merch</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item hide-intellij">
                 <a class="nav-link" href="https://docs.korge.org/" target="_blank">Docs</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item hide-intellij">
                 <a class="nav-link" href="https://blog.korge.org/" target="_blank">Blog</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item hide-intellij">
                 <a class="nav-link" href="https://korge.org/" target="_blank">Landing</a>
             </li>
             <form class="form-inline">
@@ -82,5 +83,25 @@
         {{content}}
     </div>
 </div>
+
+<script>
+    document.body.onclick = (e) => {
+        if (window?.jcefFunctions?.openNativeBrowser) {
+            if (e.target.tagName.toUpperCase() === "A") {
+                if (e.target.href.startsWith("https://") || e.target.href.startsWith("http://")) {
+                    if (
+                        !e.target.href.startsWith("http://127.0.0.1:4000")
+                        && !e.target.href.startsWith("http://localhost:4000")
+                        && !e.target.href.startsWith("https://store.korge.org")
+                    ) {
+                        //alert(e.target)
+                        window?.jcefFunctions?.openNativeBrowser?.(e.target.href)
+                        return false
+                    }
+                }
+            }
+        }
+    }
+</script>
 </body>
 </html>

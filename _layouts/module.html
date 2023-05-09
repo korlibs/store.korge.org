@@ -87,11 +87,116 @@ dependencies:
 <script>
     let currentTag = defaultTag;
 
-    function getUrlForTag(tag) {
+    function getUrlTag(baseUrl) {
+        const result = /\/tree\/(.*?)\//.exec(baseUrl)
+        return result?.[1]
+    }
+
+    function getUrlForTag(tag, baseUrl = cannonicalUrl) {
         if (tag === undefined || tag === '') tag = defaultTag;
         const commitId = tags[tag]
-        const url = cannonicalUrl.replace(/\/tree\/main\//, `/tree/${tag}/`)
+        const url = baseUrl.replace(/\/tree\/(.*?)\//, `/tree/${tag}/`)
         return {url, commitId}
+    }
+
+
+    async function init() {
+        //alert(1)
+        //await delay(100)
+        //alert(JSON.stringify(window?.jcefFunctions))
+
+        if (!window?.jcefFunctions?.getKProjectDependencies) return
+
+        //alert("[a]")
+        const pluginsList = (await getKProjectDependencies()) || []
+        //alert("[b]")
+
+        const pluginsMap = {};
+        let removeUrl = null
+        for (const plugin of pluginsList) {
+            const tag = getUrlTag(plugin);
+            const pluginCannonicalUrl = getUrlForTag('main', plugin).url
+            // @TODO: Extract ref/version from url
+            pluginsMap[pluginCannonicalUrl] = tag
+            if (cannonicalUrl === pluginCannonicalUrl) {
+                removeUrl = plugin
+            }
+        }
+
+        //alert(JSON.stringify(pluginsMap))
+
+        const installedTag = pluginsMap[cannonicalUrl]
+
+        const getCodeButton = document.getElementById("get-code-button")
+
+        console.log(getCodeButton)
+        if (getCodeButton) {
+            getCodeButton.style.display = "block"
+
+            //alert(`installedTag=${installedTag}, currentTag=${currentTag}`)
+
+            if (installedTag === currentTag) {
+                getCodeButton.textContent = `Installed`;
+                getCodeButton.classList.toggle('disabled', true)
+            } else if (installedTag) {
+                getCodeButton.textContent = `Update from ${installedTag} to ${currentTag}`;
+                getCodeButton.classList.toggle('disabled', false)
+            } else {
+                getCodeButton.textContent = `Install to IntelliJ`;
+                getCodeButton.classList.toggle('disabled', false)
+            }
+
+            //alert(2)
+
+            getCodeButton.onclick = async (e) => {
+                //alert(1)
+                const url = currentUrl;
+                const title = moduleEntry.title;
+                const icon = moduleEntry.icon;
+                const author = (moduleEntry.authors || []).join(", ");
+                const html = `<html>
+                    <head>
+                        <style>
+                        :root {
+                            --bgcolor: #3c3f41ff;
+                            --labelcolor: #bbbbbbff;
+                        }
+                        body {
+                            background: var(--bgcolor);
+                            color: var(--labelcolor);
+                            font: 14px Arial;
+                        }
+                        p {
+                            margin: 0; padding: 0;
+                        }
+                        </style>
+                    </head>
+                    <body>
+                        <${'script>'}
+                        //setTimeout(() => { alert(document.head.innerHTML) }, 100)
+                        </${'script>'}
+                        <p><strong>Title:</strong> ${htmlspecialchars(title)}</p>
+                        <p><strong>Author:</strong> ${htmlspecialchars(author)}</p>
+                        <p><strong>URL:</strong> ${htmlspecialchars(url)}</p>
+                        <img src="${htmlspecialchars(icon)}" style="max-height:calc(100vh - 4em);">
+                    </body>
+                </html>`
+
+                const result = await window.jcefFunctions.installKProjectDependency({
+                    url, removeUrl, title, author, icon, html
+                })
+                initChecked() // reinit
+                return false
+            }
+        }
+    }
+
+    async function initChecked() {
+        try {
+            await init()
+        } catch (e) {
+            error(e)
+        }
     }
 
     function updateTags() {
@@ -114,15 +219,14 @@ dependencies:
         currentCommitId = commitId;
         //console.log(tag, commitId)
         document.querySelector(".codechunk").innerHTML = `<a href="${url}" target="_blank">${url}</a>##${commitId}`
+        //alert(1)
         updateTags()
+        //alert(2)
+        //setTimeout(() => {
+            initChecked()
+        //}, 100)
+        //alert(3)
     }
-
-    updatedUrl()
-
-    window.onpopstate = function(event) {
-        updatedUrl()
-    };
-
 
     /*
     async function downloadGithubFile(org, repo, ref, path) {
@@ -151,44 +255,30 @@ dependencies:
     })();
 
      */
-</script>
 
-<script>
     //alert([...document.querySelectorAll(".bundle-entry")])
 
     async function getKProjectDependencies() {
-        return window?.jcefFunctions?.getKProjectDependencies?.({})
+        return await window?.jcefFunctions?.getKProjectDependencies?.({})
     }
 
-    async function init() {
-        if (!window?.jcefFunctions?.installKProjectDependency) return
-
-        const plugins = (await getKProjectDependencies()) || {}
-
-        const installed = !!plugins[cannonicalUrl]
-
-        const getCodeButton = document.getElementById("get-code-button")
-
-        console.log(getCodeButton)
-        if (getCodeButton) {
-            getCodeButton.style.display = "block"
-            const url = currentUrl;
-            const title = moduleEntry.title;
-            const icon = moduleEntry.icon;
-            const author = (moduleEntry.authors || []).join(", ");
-
-            getCodeButton.textContent = installed ? "Installed" : "Install to IntelliJ";
-            getCodeButton.classList.toggle('disabled', installed)
-
-            getCodeButton.onclick = async (e) => {
-                const result = await window.jcefFunctions.installKProjectDependency({
-                    url, title, author, icon
-                })
-                init() // reinit
-                return false
-            }
-        }
+    function delay(ms) {
+        return new Promise((resolve, _) => {
+            setTimeout(resolve, ms)
+        })
     }
 
-    init()
+    function htmlspecialchars(text) {
+        if (text == null || text == undefined) return null
+        const div = document.createElement('div')
+        div.innerText = text
+        return div.innerHTML
+    }
+
+    window.onpopstate = function(event) {
+        updatedUrl()
+    };
+
+    updatedUrl()
+
 </script>
