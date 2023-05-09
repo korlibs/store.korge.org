@@ -7,4 +7,13 @@ To contribute fork this repository, then execute (changing the URL):
 ```
 
 That will create the proper entry, will download the tags and commitIds.
+
+Now you can try the store locally with (you will need to have `jekyllrb` installed):
+
+```bash
+./start.sh
+```
+
+And opening <http://127.0.0.1:4000/> in your browser.
+
 Then you can make a PR for your module/library/assert to be included.
