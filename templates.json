@@ -10,16 +10,16 @@ kinds:
 {%- assign lastKind = forloop.last -%}
 {% for kit in kits -%}
 {% capture zip %}{{ kit.repo }}/archive/refs/heads/{{ kit.branch }}.zip{% endcapture %}
-{
-"title": {{ kit.title | jsonify }},
-"category": {{ kind.name | jsonify }},
-"repo": {{ kit.repo | jsonify }},
-"zip": {{ zip | jsonify }},
-"branch": {{ kit.branch | jsonify }},
-"enabled": {{ kit.enabled | jsonify }},
-"screenshot": {{ kit.screenshot | jsonify }},
-"description": {{ kit.content | raw | jsonify }}
-}
+  {
+    "title": {{ kit.title | jsonify }},
+    "category": {{ kind.name | jsonify }},
+    "repo": {{ kit.repo | jsonify }},
+    "zip": {{ zip | jsonify }},
+    "branch": {{ kit.branch | jsonify }},
+    "enabled": {{ kit.enabled | jsonify }},
+    "screenshot": {{ kit.screenshot | jsonify }},
+    "description": {{ kit.content | raw | jsonify }}
+  }
 {%- if forloop.last and lastKind -%}{% else %},{%- endif -%}
 
 {%- endfor %}
