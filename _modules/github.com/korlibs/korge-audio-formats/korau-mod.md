@@ -4,7 +4,8 @@ title: MOD, XM & S3M
 authors: [korlibs]
 category: Audio
 link: https://github.com/korlibs/korge-audio-formats/tree/main/korau-mod
-icon: /i/fasttracker.png
+icon: /i/mod.png
+show_title: false
 ---
 
 Support for MOD, XM & S3M music modules.

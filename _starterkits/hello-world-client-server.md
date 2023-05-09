@@ -1,6 +1,6 @@
 ---
 layout: starterkit
-title: Hello World Client Server
+title: Hello World Ktor
 authors: [korlibs]
 repo: https://github.com/korlibs/korge-hello-world-client-server
 screenshot: /i/korge_plus_ktor.png

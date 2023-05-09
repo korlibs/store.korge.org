@@ -1,6 +1,6 @@
 ---
 layout: module
-title: KorGE Jitto Logo & Mascot
+title: Jitto
 authors: [korlibs]
 category: Assets
 link: https://github.com/korlibs/korge-jitto/tree/main/korge-jitto

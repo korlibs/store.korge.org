@@ -1,6 +1,6 @@
 ---
 layout: module
-title: "Koral & Gest : KorGE Mascots"
+title: "Koral & Gest"
 authors: [korlibs]
 category: Assets
 link: https://github.com/korlibs/korge-mascots/tree/main/korge-mascots
