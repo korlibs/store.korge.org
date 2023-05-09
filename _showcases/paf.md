@@ -4,7 +4,7 @@ title: PAF
 repo: https://github.com/hiperbou/paf
 screenshot: https://github.com/hiperbou/paf/raw/master/screenshots/screenshot2.jpg
 authors: [hiperbou]
-branch: master
+branch: f02030f5d95cb2c7244b79733208ffea249b1fb2
 enabled: true
 ---
 
