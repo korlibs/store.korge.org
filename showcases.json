@@ -4,9 +4,11 @@ layout: null
 {%- assign kits = site.showcases | sort: "order" -%}
 [
   {% for kit in kits -%}
+  {% capture zip %}{{ kit.repo }}/archive/refs/heads/{{ kit.branch }}.zip{% endcapture %}
   {
     "title": {{ kit.title | jsonify }},
     "repo": {{ kit.repo | jsonify }},
+    "zip": {{ zip | jsonify }},
     "branch": {{ kit.branch | jsonify }},
     "enabled": {{ kit.enabled | jsonify }},
     "screenshot": {{ kit.screenshot | jsonify }},
