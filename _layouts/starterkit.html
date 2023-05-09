@@ -7,19 +7,16 @@ title: My Page
     <div class="row">
         <div class="col-md-3 order-2">
             {% include authors.html authors=page.authors %}
+            <h3>Repository:</h3>
+            <a href="{{ page.repo }}" target="_blank">{{ page.repo }}</a>
         </div>
         <div class="col-md-9">
-            <h1>{{ page.title }}</h1>
-
-            <h3>
-                Repository: <a href="{{ page.repo }}" target="_blank">{{ page.repo }}</a>
-            </h3>
-
-            <h2>
+            <h1>
+                {{ page.title }}
                 <a href="{{ page.repo }}/archive/{{ page.branch }}.zip" class="btn btn-primary">Download ZIP</a>
-            </h2>
+            </h1>
 
-            <img src="{{ page.screenshot }}" style="max-height:400px;"/>
+            <img src="{{ page.screenshot }}" style="max-width: 90%;max-height:400px;"/>
 
             <div style="margin-top:16px;">
                 {{ content }}
