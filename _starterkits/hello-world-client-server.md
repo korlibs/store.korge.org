@@ -3,6 +3,7 @@ layout: starterkit
 title: Hello World Client Server
 authors: [korlibs]
 repo: https://github.com/korlibs/korge-hello-world-client-server
+screenshot: /i/korge_plus_ktor.png
 branch: main
 enabled: true
 order: 1
