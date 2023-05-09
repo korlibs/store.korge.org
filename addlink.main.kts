@@ -73,6 +73,7 @@ fun getLocalGitRepoFolder(org: String, repo: String): File {
 
 fun ensureGitRepo(org: String, repo: String): File {
     val localGitRepoFolder = getLocalGitRepoFolder(org, repo)
+    localGitRepoFolder.parentFile.mkdirs()
     if (!localGitRepoFolder.exists()) {
         ProcessBuilder().inheritIO()
             .command("git", "clone", getRepoUrl(org, repo), localGitRepoFolder.absolutePath)
@@ -85,7 +86,7 @@ fun ensureGitRepo(org: String, repo: String): File {
     return localGitRepoFolder
 }
 
-//ensureGitRepo(org, repo)
+ensureGitRepo(org, repo)
 
 data class TagInfo(
     val commitId: String,
@@ -187,6 +188,8 @@ if (!repotagsFile.exists()) {
 //System.exit(-1)
 
 val data = extractFrontMatter(repotagsFile)
+data["tags"] = arrayListOf<Any?>()
+data["dates"] = mutableMapOf<String, String>()
 for (tag in getRepoTags(org, repo)) {
     addTagToMap(data, tag)
 }
