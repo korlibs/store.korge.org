@@ -89,7 +89,9 @@ title: KorGE Store Ecosystem (Assets, Modules & Libraries)
                 </div>
                 <div class="row">
                     {% for module in modules %}
+                    {% if module.enabled != false %}
                         {% include card.html title=module.title screenshot=module.icon screenshot_size=module.icon_size screenshot_position=module.icon_position url=module.url %}
+                    {% endif %}
                     {% endfor %}
                 </div>
                     </div>
