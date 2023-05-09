@@ -13,6 +13,7 @@ kinds:
   {
     "title": {{ kit.title | jsonify }},
     "category": {{ kind.name | jsonify }},
+    "authors": {{ kind.authors | jsonify }},
     "repo": {{ kit.repo | jsonify }},
     "zip": {{ zip | jsonify }},
     "branch": {{ kit.branch | jsonify }},
