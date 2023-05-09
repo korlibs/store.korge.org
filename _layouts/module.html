@@ -51,7 +51,7 @@ title: My Page
                     {% assign commitId = t | last %}
                     {% assign date = repotag.dates[commitId] %}
                     {% if date %}
-                    <small class="badge badge-info">{{ date | date: "%Y-%-m-%d" }}</small>
+                    <small class="badge badge-info">{{ date | date: "%Y-%m-%d" }}</small>
                     {% endif %}
                 </a>
                 {% endfor %}
