@@ -16,6 +16,7 @@ import kotlinx.coroutines.runBlocking
 import org.yaml.snakeyaml.DumperOptions
 import org.yaml.snakeyaml.Yaml
 import java.io.File
+import java.time.Instant
 
 fun downloadUrlText(url: String): String {
     return runBlocking { UrlVfs(URL(url)).readString() }
@@ -62,18 +63,68 @@ val repotagsFile = File("./_repotags/github.com/$org/$repo/github.com-$org-$repo
 
 println("file: $mainModuleFile")
 
-fun getRepoTags(org: String, repo: String): Map<String, String> {
-    val tags = Json.parse(downloadUrlText("https://api.github.com/repos/$org/$repo/tags")).dyn
-    return tags.list.associate { it["name"].str to it["commit"]["sha"].str }
+fun getRepoUrl(org: String, repo: String): String {
+    return "https://github.com/$org/$repo.git"
 }
 
-fun getCommitDate(org: String, repo: String, ref: String): String {
-    val info = Json.parse(downloadUrlText("https://api.github.com/repos/$org/$repo/commits/$ref")).dyn
-    //println(info)
-    return info["commit"]["committer"]["date"].str
+fun getLocalGitRepoFolder(org: String, repo: String): File {
+    return File("${System.getProperty("user.home")}/.kproject/clones/github.com/${File(org).name}/${File(repo).name}/__git__")
 }
 
-fun addTagToMap(data: MutableMap<String, Any?>, tag: String, commitId: String) {
+fun ensureGitRepo(org: String, repo: String): File {
+    val localGitRepoFolder = getLocalGitRepoFolder(org, repo)
+    if (!localGitRepoFolder.exists()) {
+        ProcessBuilder().inheritIO()
+            .command("git", "clone", getRepoUrl(org, repo), localGitRepoFolder.absolutePath)
+            .start().waitFor()
+    }
+    ProcessBuilder().inheritIO()
+        .command("git", "pull")
+        .directory(localGitRepoFolder)
+        .start().waitFor()
+    return localGitRepoFolder
+}
+
+//ensureGitRepo(org, repo)
+
+data class TagInfo(
+    val commitId: String,
+    val tagId: String,
+    val date: Long
+)
+
+fun getRepoTags(org: String, repo: String): List<TagInfo> {
+    val lines = ProcessBuilder()
+        .command("git", "log", "--no-walk", "--tags", "--pretty=%H:::::%d:::::%at:::::%s", "--decorate=full", "--date-order")
+        .directory(getLocalGitRepoFolder(org, repo))
+        .start().inputStream.readAllBytes().toString(Charsets.UTF_8)
+        .lines()
+        .map { it.trim() }
+        .filter { it.isNotBlank() }
+
+    val map = lines.map {
+        val (commitId, refInfo, date, message) = it.split(":::::")
+        val tagId = Regex("refs/tags/(.*?)(,|\\)|\$)").find(refInfo)?.groupValues?.get(1) ?: error("Can't find tagId in '$refInfo'")
+        TagInfo(commitId, tagId, date.toLong() * 1000L)
+    }
+
+    return map
+}
+
+//getRepoTags(org, repo)
+
+//fun getRepoTags2(org: String, repo: String): Map<String, String> {
+//    val tags = Json.parse(downloadUrlText("https://api.github.com/repos/$org/$repo/tags")).dyn
+//    return tags.list.associate { it["name"].str to it["commit"]["sha"].str }
+//}
+
+//fun getCommitDate(org: String, repo: String, ref: String): String {
+//    val info = Json.parse(downloadUrlText("https://api.github.com/repos/$org/$repo/commits/$ref")).dyn
+//    //println(info)
+//    return info["commit"]["committer"]["date"].str
+//}
+
+fun addTagToMap(data: MutableMap<String, Any?>, vtag: TagInfo) {
 // Modify the data structure as needed
     if ("tags" !in data || data["tags"] !is MutableList<*>) {
         data["tags"] = arrayListOf<Any?>()
@@ -84,24 +135,23 @@ fun addTagToMap(data: MutableMap<String, Any?>, tag: String, commitId: String) {
     val tags = (data["tags"] as MutableList<Map<String, String>>)
     var exists = false
     for (_tag in tags) {
-        if (tag in _tag) {
+        if (vtag.tagId in _tag) {
             exists = true
             break
         }
     }
     if (!exists) {
-        println("Added tag $tag -> $commitId")
-        tags.add(mapOf(tag to commitId))
+        println("Added tag ${vtag.tagId} -> ${vtag.commitId}")
+        tags.add(mapOf(vtag.tagId to vtag.commitId))
     } else {
-        println("Existing tag $tag -> $commitId")
+        println("Existing tag ${vtag.tagId} -> ${vtag.commitId}")
     }
 
     val dates = data["dates"] as MutableMap<String, String>
-    if (commitId !in dates) {
-        val date = getCommitDate(org, repo, commitId)
-        dates[commitId] = date
+    if (vtag.commitId !in dates) {
+        dates[vtag.commitId] = Instant.ofEpochMilli(vtag.date).toString()
     }
-    println(" -> ${dates[commitId]}")
+    println(" -> ${dates[vtag.commitId]}")
 }
 
 if (!mainModuleFile.exists()) {
@@ -138,7 +188,7 @@ if (!repotagsFile.exists()) {
 
 val data = extractFrontMatter(repotagsFile)
 for (tag in getRepoTags(org, repo)) {
-    addTagToMap(data, tag.key, tag.value)
+    addTagToMap(data, tag)
 }
 updateFrontMatter(repotagsFile, data)
 
