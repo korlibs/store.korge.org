@@ -8,3 +8,9 @@ icon: /i/fasttracker.png
 ---
 
 Support for MOD, XM & S3M sound modules.
+
+```kotlin
+defaultAudioFormats.register(MOD, S3M, XM)
+val music = soundsFolder["GUITAROU.MOD"].readMusic()
+var channel = music.play(times = infinitePlaybackTimes)
+```
