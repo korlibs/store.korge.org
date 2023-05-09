@@ -95,7 +95,7 @@ dependencies:
     function getUrlForTag(tag, baseUrl = cannonicalUrl) {
         if (tag === undefined || tag === '') tag = defaultTag;
         const commitId = tags[tag]
-        const url = baseUrl.replace(/\/tree\/(.*?)\//, `/tree/${tag}/`)
+        const url = baseUrl.replace(/\/tree\/(.*?)\//, `/tree/${tag}/`).split('##')[0]
         return {url, commitId}
     }
 
@@ -151,7 +151,7 @@ dependencies:
             getCodeButton.onclick = (e) => {
                 (async () => {
                     //alert(1)
-                    const url = currentUrl;
+                    const url = `${currentUrl}##${currentCommitId}`;
                     const title = moduleEntry.title;
                     const icon = moduleEntry.icon;
                     const author = (moduleEntry.authors || []).join(", ");
