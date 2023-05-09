@@ -7,10 +7,6 @@ link: https://github.com/korlibs/korge-monetization/tree/main/korge-admob
 icon: https://github.com/korlibs/korge-monetization/raw/0626116280e4da8f9e3f55211c6f1b100e711bb1/korge-admob/admob.svg
 ---
 
-# KorGE Admob Support
-
-<img src="https://github.com/korlibs/korge-monetization/raw/0626116280e4da8f9e3f55211c6f1b100e711bb1/korge-admob/admob.svg" width="128" height="128" />
-
 Adds support for <https://admob.google.com/>.
 
 ## Supports
