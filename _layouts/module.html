@@ -150,12 +150,14 @@ dependencies:
 
             getCodeButton.onclick = (e) => {
                 (async () => {
-                    //alert(1)
-                    const url = `${currentUrl}##${currentCommitId}`;
-                    const title = moduleEntry.title;
-                    const icon = moduleEntry.icon;
-                    const author = (moduleEntry.authors || []).join(", ");
-                    const html = `<html>
+                    alert("clicked1")
+                    try {
+                        alert("clicked2")
+                        const url = `${currentUrl}##${currentCommitId}`;
+                        const title = moduleEntry.title;
+                        const icon = moduleEntry.icon;
+                        const author = (moduleEntry.authors || []).join(", ");
+                        const html = `<html>
                         <head>
                             <style>
                             :root {
@@ -183,11 +185,16 @@ dependencies:
                             <img src="${htmlspecialchars(icon)}" style="max-height:calc(100vh - 6em);">
                         </body>
                     </html>`
+                        alert("clicked3")
 
-                    await window.jcefFunctions.installKProjectDependency({
-                        url, removeUrl, title, author, icon, html
-                    })
-                    initChecked() // reinit
+                        await window.jcefFunctions.installKProjectDependency({
+                            url, removeUrl, title, author, icon, html
+                        })
+                        initChecked() // reinit
+                    } catch (e) {
+                        alert(e)
+                        throw e
+                    }
                 })()
 
                 return false
