@@ -9,4 +9,4 @@ enabled: true
 order: 2
 ---
 
-Shows how to use DragonBones, the Korge Mascots and LDtk maps
+Shows how to use DragonBones, the Korge Mascots, the VirtualController and LDtk maps to create a Platformer game.
