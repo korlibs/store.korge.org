@@ -19,14 +19,20 @@ val virtualController = virtualController(
             down = Key.DOWN,
             lx = GameButton.LX,
             ly = GameButton.LY,
-            position = Anchor.BOTTOM_LEFT,
+            anchor = Anchor.BOTTOM_LEFT,
         )
     ),
     buttons = listOf(
         VirtualButtonConfig(
             key = Key.SPACE,
             button = GameButton.BUTTON_SOUTH,
-            position = Anchor.BOTTOM_RIGHT,
+            anchor = Anchor.BOTTOM_RIGHT,
+        ),
+        VirtualButtonConfig(
+            key = Key.RETURN,
+            button = GameButton.BUTTON_NORTH,
+            anchor = Anchor.BOTTOM_RIGHT,
+            offset = Point(0f, -100f)
         )
     ),
 )
