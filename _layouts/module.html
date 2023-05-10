@@ -150,9 +150,9 @@ dependencies:
 
             getCodeButton.onclick = (e) => {
                 (async () => {
-                    alert("clicked1: " + JSON.stringify(pluginsList))
+                    //alert("clicked1: " + JSON.stringify(pluginsList))
                     try {
-                        alert("clicked2")
+                        //alert("clicked2")
                         const url = `${currentUrl}##${currentCommitId}`;
                         const title = moduleEntry.title;
                         const icon = moduleEntry.icon;
@@ -185,7 +185,7 @@ dependencies:
                             <img src="${htmlspecialchars(icon)}" style="max-height:calc(100vh - 6em);">
                         </body>
                     </html>`
-                        alert("clicked3")
+                        //alert("clicked3")
 
                         await window.jcefFunctions.installKProjectDependency({
                             url, removeUrl, title, author, icon, html
