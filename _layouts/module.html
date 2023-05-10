@@ -150,7 +150,7 @@ dependencies:
 
             getCodeButton.onclick = (e) => {
                 (async () => {
-                    alert("clicked1", pluginsList)
+                    alert("clicked1: " + JSON.stringify(pluginsList))
                     try {
                         alert("clicked2")
                         const url = `${currentUrl}##${currentCommitId}`;
