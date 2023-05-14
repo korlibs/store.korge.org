@@ -9,6 +9,26 @@ icon: /i/compose-multiplatform.svg
 
 Use Compose Multiplatform along KorGE.
 
+In order to use this module you need to do some manual additions for now:
+
+## In your root `build.gradle.kts`
+
+```kotlin
+plugins {
+    // ...
+	id("org.jetbrains.compose") version "1.4.0" 
+}
+
+// ...
+
+compose {
+	kotlinCompilerPluginArgs.add("suppressKotlinVersionCompatibilityCheck=1.8.21")
+	kotlinCompilerPlugin.set(dependencies.compiler.forKotlin("1.8.20"))
+}
+```
+
+And it also requires at least kproject `0.2.7`.
+
 Example. Using the Vampires asset:
 
 ```kotlin
