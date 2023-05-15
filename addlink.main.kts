@@ -162,6 +162,7 @@ for (url in args) {
         layout: module
         title: ${PathInfo(path).baseName}
         authors: [${org}]
+        category: Other
         link: https://github.com/$org/$repo/tree/main$path
         ---
     """.trimIndent()
