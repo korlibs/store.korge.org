@@ -1,0 +1,6 @@
+---
+layout: null
+---
+User-agent: *
+Disallow: /wp-admin/
+Sitemap: {{ '/sitemap.xml' | absolute_url }}
