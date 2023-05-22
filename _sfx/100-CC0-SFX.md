@@ -106,3 +106,9 @@ files:
 - wooden_02.mp3
 - wooden_03.mp3
 ---
+
+<https://opengameart.org/content/100-cc0-sfx>
+
+```kotlin
+val sound = resourcesVfs["sfx/file.mp3"].readSound()
+```

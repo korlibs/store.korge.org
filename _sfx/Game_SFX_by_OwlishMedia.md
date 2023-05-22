@@ -1,6 +1,6 @@
 ---
 layout: sfx
-title: Game SFX by OwlishMedia
+title: 8-bit Sound Effect Pack Game SFX by OwlishMedia
 base: https://github.com/korlibs/korge-free-sfx/raw/main/Game_SFX_by_OwlishMedia/
 authors: [OwlishMedia]
 enabled: true
@@ -81,3 +81,9 @@ files:
 - wobbleup.mp3
 - wobbleup2.mp3
 ---
+
+<https://opengameart.org/content/8-bit-sound-effect-pack>
+
+```kotlin
+val sound = resourcesVfs["sfx/file.mp3"].readSound()
+```

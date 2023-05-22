@@ -7,8 +7,6 @@ title: My Page
     <div class="row">
         <div class="col-md-3 order-2">
             {% include authors.html authors=page.authors %}
-            <h3>Repository:</h3>
-            <a href="{{ page.repo }}" target="_blank">{{ page.repo }}</a>
         </div>
         <div class="col-md-9">
             <h1>
@@ -17,62 +15,94 @@ title: My Page
 
             <img src="{{ page.screenshot }}" style="max-width: 90%;max-height:400px;"/>
 
-            <div style="margin-top:16px;">
-                {{ content }}
-            </div>
+            {{ content }}
+
+            <table class="table table-dark">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">File</th>
+                    <th scope="col">Preview</th>
+                    <th scope="col" class="show-intellij-table-cell">Install</th>
+                </tr>
+                </thead>
+                <tbody>
+                <audio id="myAudio">
+                    <source src="about:blank" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+                <script>
+                    function playSound(e, url) {
+                        new Audio(url || e.href).play()
+                        return false
+                    }
+                    function downloadSound(e, url) {
+                        try {
+                            const filename = `${url}`.split('/').pop()
+                            const icon = 'about:blank'
+                            const output = `sfx/${filename}`
+                            const author = {{ page.authors | jsonify }}.join(", ")
+                            const html = `<html>
+                <head>
+                    <style>
+                    :root {
+                        --bgcolor: #3c3f41ff;
+                        --labelcolor: #bbbbbbff;
+                    }
+                    body {
+                        background: var(--bgcolor);
+                        color: var(--labelcolor);
+                        font: 14px Arial;
+                    }
+                    p {
+                        margin: 0; padding: 0;
+                    }
+                    </style>
+                </head>
+                <body>
+                    <p><strong>Title:</strong> ${htmlspecialchars(filename)}</p>
+                    <p><strong>Output:</strong> <code>${htmlspecialchars(output)}</code></p>
+                    <p><strong>Author:</strong> ${htmlspecialchars(author)}</p>
+                    <p style="white-space: nowrap"><strong>URL:</strong> ${htmlspecialchars(url)}</p>
+                    <div>&nbsp;</div>
+                    <!--
+                    <img src="${htmlspecialchars(icon)}" style="max-height:calc(100vh - 6em);">
+                    -->
+                </body>
+            </html>`
+
+                            window.jcefFunctions.downloadAsset({
+                                url: url || e.href,
+                                html: html,
+                                output: output
+                            })
+                        } catch (e) {
+                            alert(`${e}`)
+                            throw e
+                        }
+                    }
+                </script>
+
+                {% for file in page.files %}
+                {% capture url %}{{ page.base }}{{ file }}{% endcapture %}
+                <tr>
+                    <th scope="row">{{ forloop.index }}</th>
+                    <td><a href="{{ url }}" target="_blank" download>{{ file }}</a></td>
+                    <td>
+                        <button class="btn btn-primary" onclick='return playSound(this, {{ url | jsonify }})'>
+                            ▶️
+                        </button>
+                    </td>
+                    <td class="show-intellij-table-cell">
+                        <button class="btn btn-success" onclick='return downloadSound(this, {{ url | jsonify }})'>
+                            💾
+                        </button>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
         </div>
     </div>
 </div>
-
-
-<div class="container">
-    <div class="row">
-        <h1>SFX</h1>
-    </div>
-</div>
-
-<table class="table table-dark">
-    <thead>
-    <tr>
-        <th scope="col">#</th>
-        <th scope="col">Name</th>
-        <th scope="col">Play</th>
-        <th scope="col" class="show-intellij-table-cell">Install</th>
-    </tr>
-    </thead>
-    <tbody>
-    <audio id="myAudio">
-        <source src="about:blank" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
-    <script>
-        function playSound(e, url) {
-            new Audio(url || e.href).play()
-            return false
-        }
-        function downloadSound(e, url) {
-            window?.jcefFunctions?.downloadAsset?.({
-                url: url || e.href
-            })
-        }
-    </script>
-
-    {% for file in page.files %}
-    {% capture url %}{{ page.base }}{{ file }}{% endcapture %}
-    <tr>
-        <th scope="row">{{ forloop.index }}</th>
-        <td><a href="{{ url }}" target="_blank" download>{{ file }}</a></td>
-        <td>
-            <button class="btn btn-primary" onclick='return playSound(this, {{ url | jsonify }})'>
-                ▶️
-            </button>
-        </td>
-        <td class="show-intellij-table-cell">
-            <a class="btn btn-success" href="{{ url }}" onclick="return downloadSound(this)">
-            💾
-            </a>
-        </td>
-    </tr>
-    {% endfor %}
-    </tbody>
-</table>
