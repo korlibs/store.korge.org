@@ -1,0 +1,7 @@
+
+Download <code>{{ include.name }}</code>
+<a href="{{ include.url }}" class="btn btn-primary" target="_blank">
+    👁️
+</a> <button class="btn btn-success" onclick='return downloadAsset(this, {{ include.url | jsonify }}, false, {{ include.prefix | jsonify }}, undefined, {{ include.author }})'>
+    💾
+</button>

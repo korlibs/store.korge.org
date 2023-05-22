@@ -1,6 +1,6 @@
 ---
 layout: sfx
-title: 100 CC0 SFX
+title: MOD CC0
 base: https://github.com/korlibs/korge-free-sfx/raw/main/MOD-CC0/
 authors: [OwlishMedia]
 enabled: true

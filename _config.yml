@@ -26,3 +26,7 @@ collections:
     sort_by: order
     output: true
     permalink: /sfx/:title/
+  gfx:
+    sort_by: order
+    output: true
+    permalink: /gfx/:title/

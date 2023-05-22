@@ -117,6 +117,22 @@ priority: 1.0
     </div>
 </div>
 
+<div class="container">
+    <div class="row">
+        <h1>GFX</h1>
+    </div>
+    <div class="jumbotron" style="padding: 1rem 2rem;background:rgba(0,0,0,0.1);">
+        <div class="row">
+            {% assign kits = site.gfx | sort: "order" %}
+            {% for kit in kits %}
+            {% if kit.enabled %}
+            {% include card.html title=kit.title screenshot=kit.screenshot url=kit.url %}
+            {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
 <style>
     .single-features {
         cursor: pointer;
