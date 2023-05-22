@@ -61,7 +61,7 @@ title: My Page
     {% capture url %}{{ page.base }}{{ file }}{% endcapture %}
     <tr>
         <th scope="row">{{ forloop.index }}</th>
-        <td><a href="{{ url }}" target="_blank">{{ file }}</a></td>
+        <td><a href="{{ url }}" target="_blank" download>{{ file }}</a></td>
         <td>
             <button class="btn btn-primary" onclick='return playSound(this, {{ url | jsonify }})'>
                 ▶️
