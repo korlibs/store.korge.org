@@ -86,11 +86,12 @@ title: My Page
 
                 {% for file in page.files %}
                 {% capture url %}{{ page.base }}{{ file }}{% endcapture %}
+                {% assign extension = url | split: "." | last %}
                 <tr>
                     <th scope="row">{{ forloop.index }}</th>
                     <td><a href="{{ url }}" target="_blank" download>{{ file }}</a></td>
                     <td>
-                        <button class="btn btn-primary" onclick='return playSound(this, {{ url | jsonify }})'>
+                        <button {% if extension == "mp3" %} class="btn btn-primary"{% else %} class="btn btn-secondary" disabled{% endif %} onclick='return playSound(this, {{ url | jsonify }})'>
                             ▶️
                         </button>
                     </td>

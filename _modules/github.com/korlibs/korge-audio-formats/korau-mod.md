@@ -15,3 +15,5 @@ defaultAudioFormats.register(MOD, S3M, XM)
 val music = resourcesVfs["GUITAROU.MOD"].readMusic()
 var channel = music.play(times = infinitePlaybackTimes)
 ```
+
+You can find some archives in this format [here](/sfx/MOD-CC0/).
