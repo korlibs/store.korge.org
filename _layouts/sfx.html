@@ -36,11 +36,11 @@ title: My Page
                         new Audio(url || e.href).play()
                         return false
                     }
-                    function downloadSound(e, url) {
+                    function downloadSound(e, url, unzip, base = 'sfx', outputname = undefined) {
                         try {
                             const filename = `${url}`.split('/').pop()
                             const icon = 'about:blank'
-                            const output = `sfx/${filename}`
+                            const output = `${base}/${outputname || filename}`
                             const author = {{ page.authors | jsonify }}.join(", ")
                             const html = `<html>
                 <head>
@@ -74,7 +74,8 @@ title: My Page
                             window.jcefFunctions.downloadAsset({
                                 url: url || e.href,
                                 html: html,
-                                output: output
+                                output: output,
+                                unzip: unzip || false,
                             })
                         } catch (e) {
                             alert(`${e}`)
@@ -102,7 +103,11 @@ title: My Page
                 {% endfor %}
                 </tbody>
             </table>
-
+            <!--
+            <button class="btn btn-success" onclick='return downloadSound(this, "https://opengameart.org/sites/default/files/zortch_unused2.zip", true, "atlas")'>
+                💾
+            </button>
+            -->
         </div>
     </div>
 </div>
