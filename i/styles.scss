@@ -111,6 +111,9 @@ body.intellij .hide-intellij {
 body .show-intellij {display: none;}
 body.intellij .show-intellij {display: block;}
 
+body .show-intellij-inline-block {display: none;}
+body.intellij .show-intellij-inline-block {display: inline-block;}
+
 body .show-intellij-table-cell {display: none;}
 body.intellij .show-intellij-table-cell {display: table-cell;}
 

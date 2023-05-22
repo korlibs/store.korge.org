@@ -1,12 +1,12 @@
 <p>
-    Download <code>{{ include.name }}</code>
+    Download <a href="{{ include.url }}" target="_blank"><code>{{ include.name }}</code></a>
     {% if include.prefix == "sfx" %}
         <button class="btn btn-primary" onclick='return playSound(this, {{ include.url | jsonify }})'>▶️</button>
     {% else %}
         <a href="{{ include.url }}" class="btn btn-primary" target="_blank">👁️</a>
     {% endif %}
 
-    <button class="btn btn-success" onclick='return downloadAsset(this, {{ include.url | jsonify }}, false, {{ include.prefix | jsonify }}, undefined, {{ include.author }})'>
+    <button class="btn btn-success show-intellij-inline-block" onclick='return downloadAsset(this, {{ include.url | jsonify }}, false, {{ include.prefix | jsonify }}, undefined, {{ include.author }})'>
         💾
     </button>
 </p>
