@@ -12,8 +12,30 @@ function htmlspecialchars(text) {
     return div.innerHTML
 }
 
+let currentAudio = null
+
+function stopSounds() {
+    currentAudio?.stop?.()
+    currentAudio?.pause?.()
+    currentAudio = null
+}
+
 function playSound(e, url) {
-    new Audio(url || e.href).play()
+    const eurl = `${url || e.href}`
+    stopSounds()
+    if (eurl.endsWith(".mp3") || eurl.endsWith(".wav")) {
+        currentAudio = new Audio(eurl)
+        currentAudio.play()
+    } else {
+        const modPlayer = new ScripTracker();
+        modPlayer.on(ScripTracker.Events.playerReady, () => {
+            modPlayer.play()
+        });
+        console.log(modPlayer)
+        modPlayer.loadModule(eurl);
+        currentAudio = modPlayer
+    }
+
     return false
 }
 function downloadAsset(e, url, unzip, base = 'sfx', outputname = undefined, author = "Unknown") {
