@@ -108,6 +108,13 @@ body.intellij .hide-intellij {
   display: none;
 }
 
+body .show-intellij {
+  display: none;
+}
+body.intellij .show-intellij {
+  display: inherit;
+}
+
 pre.highlight {
     color: var(--text-color);
     padding: 1em !important;

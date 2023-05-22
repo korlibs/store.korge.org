@@ -6,6 +6,7 @@ epages:
 - { key: "starterkits", priority: 0.9 }
 - { key: "showcases", priority: 0.8 }
 - { key: "modules", priority: 0.7 }
+- { key: "sfx", priority: 0.6 }
 ---
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">

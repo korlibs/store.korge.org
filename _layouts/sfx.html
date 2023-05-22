@@ -1,0 +1,77 @@
+---
+layout: default
+title: My Page
+---
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3 order-2">
+            {% include authors.html authors=page.authors %}
+            <h3>Repository:</h3>
+            <a href="{{ page.repo }}" target="_blank">{{ page.repo }}</a>
+        </div>
+        <div class="col-md-9">
+            <h1>
+                {{ page.title }}
+            </h1>
+
+            <img src="{{ page.screenshot }}" style="max-width: 90%;max-height:400px;"/>
+
+            <div style="margin-top:16px;">
+                {{ content }}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container">
+    <div class="row">
+        <h1>SFX</h1>
+    </div>
+</div>
+
+<table class="table table-dark">
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Play</th>
+        <th scope="col" class="show-intellij">Install</th>
+    </tr>
+    </thead>
+    <tbody>
+    <audio id="myAudio">
+        <source src="about:blank" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    <script>
+        function playSound(e) {
+            new Audio(e.href).play()
+            return false
+        }
+        function downloadSound(e) {
+            window?.jcefFunctions?.downloadAsset?.({
+                url: e.href
+            })
+        }
+    </script>
+
+    {% for file in page.files %}
+    <tr>
+        <th scope="row">{{ forloop.index }}</th>
+        <td><a href="{{ page.base }}{{ file }}" target="_blank">{{ file }}</a></td>
+        <td>
+            <a class="btn btn-primary" href="{{ page.base }}{{ file }}" onclick="return playSound(this)">
+                ▶️
+            </a>
+        </td>
+        <td class="show-intellij">
+            <a class="btn btn-success" href="{{ page.base }}{{ file }}" onclick="return downloadSound(this)">
+            💾
+            </a>
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
