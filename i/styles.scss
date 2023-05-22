@@ -108,12 +108,11 @@ body.intellij .hide-intellij {
   display: none;
 }
 
-body .show-intellij {
-  display: none;
-}
-body.intellij .show-intellij {
-  display: inherit;
-}
+body .show-intellij {display: none;}
+body.intellij .show-intellij {display: block;}
+
+body .show-intellij-table-cell {display: none;}
+body.intellij .show-intellij-table-cell {display: table-cell;}
 
 pre.highlight {
     color: var(--text-color);

@@ -37,7 +37,7 @@ title: My Page
         <th scope="col">#</th>
         <th scope="col">Name</th>
         <th scope="col">Play</th>
-        <th scope="col" class="show-intellij">Install</th>
+        <th scope="col" class="show-intellij-table-cell">Install</th>
     </tr>
     </thead>
     <tbody>
@@ -46,28 +46,29 @@ title: My Page
         Your browser does not support the audio element.
     </audio>
     <script>
-        function playSound(e) {
-            new Audio(e.href).play()
+        function playSound(e, url) {
+            new Audio(url || e.href).play()
             return false
         }
-        function downloadSound(e) {
+        function downloadSound(e, url) {
             window?.jcefFunctions?.downloadAsset?.({
-                url: e.href
+                url: url || e.href
             })
         }
     </script>
 
     {% for file in page.files %}
+    {% capture url %}{{ page.base }}{{ file }}{% endcapture %}
     <tr>
         <th scope="row">{{ forloop.index }}</th>
-        <td><a href="{{ page.base }}{{ file }}" target="_blank">{{ file }}</a></td>
+        <td><a href="{{ url }}" target="_blank">{{ file }}</a></td>
         <td>
-            <a class="btn btn-primary" href="{{ page.base }}{{ file }}" onclick="return playSound(this)">
+            <button class="btn btn-primary" onclick='return playSound(this, {{ url | jsonify }})'>
                 ▶️
-            </a>
+            </button>
         </td>
-        <td class="show-intellij">
-            <a class="btn btn-success" href="{{ page.base }}{{ file }}" onclick="return downloadSound(this)">
+        <td class="show-intellij-table-cell">
+            <a class="btn btn-success" href="{{ url }}" onclick="return downloadSound(this)">
             💾
             </a>
         </td>
