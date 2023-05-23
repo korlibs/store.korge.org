@@ -7,6 +7,7 @@ authors: [OwlishMedia]
 enabled: true
 files:
 - fx-poly1.mod
+- blue_intermission.xm
 ---
 
 You will have to install first [MOD/S3M/XM support](/module/korau-mod/)
