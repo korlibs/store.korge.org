@@ -7,8 +7,6 @@ screenshot: https://github.com/korlibs/korge-free-gfx/blob/5d2afe10ac98fe6f94433
 show_screenshot: false
 ---
 
-## Explosions
-
 * <https://opengameart.org/content/game-icons>
 * <https://opengameart.org/content/game-icons-expansion>
 
