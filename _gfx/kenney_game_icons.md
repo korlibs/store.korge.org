@@ -1,7 +1,7 @@
 ---
 layout: gfx
 title: Kenney Game Icons
-authors: [www.kenney.nl]
+authors: ["https://www.kenney.nl/"]
 enabled: true
 screenshot: https://github.com/korlibs/korge-free-gfx/blob/5d2afe10ac98fe6f94433cf2baed23330c860fb0/kenney-game-icons/kenney_game_icons_preview.png?raw=true
 show_screenshot: false
@@ -14,10 +14,11 @@ show_screenshot: false
 
 LICENSE CC0: Created by <https://kenney.nl/>
 
+<a data-caption="icons.atlas" data-fancybox href="https://raw.githubusercontent.com/korlibs/korge-free-gfx/5d2afe10ac98fe6f94433cf2baed23330c860fb0/kenney-game-icons/kenney_game_icons_preview.png">
+<img src="https://raw.githubusercontent.com/korlibs/korge-free-gfx/5d2afe10ac98fe6f94433cf2baed23330c860fb0/kenney-game-icons/kenney_game_icons_preview.png" style="max-height: 120px;" />
+</a>
 
-![](https://raw.githubusercontent.com/korlibs/korge-free-gfx/5d2afe10ac98fe6f94433cf2baed23330c860fb0/kenney-game-icons/kenney_game_icons_preview.png)
-
-{% include asset.html name="explosions" prefix="gfx" unzip="true" url="https://raw.githubusercontent.com/korlibs/korge-free-gfx/5d2afe10ac98fe6f94433cf2baed23330c860fb0/kenney-game-icons/icons.atlas.zip" %}
+{% include asset.html name="icons.atlas" prefix="gfx" unzip="true" url="https://raw.githubusercontent.com/korlibs/korge-free-gfx/5d2afe10ac98fe6f94433cf2baed23330c860fb0/kenney-game-icons/icons.atlas.zip" %}
 
 ## Untyped usage:
 
@@ -28,11 +29,16 @@ image(icons["arrowDown.png"])
 
 ## Typed usage:
 
-```kotlin
-val icons = resourcesVfs["gfx/icons.atlas.json"].readAtlas().toIconsAtlas()
-image(icons.arrowDown)
+You can also have type-safe access to the assets like this:
 
-fun Atlas.toIconsAtlas() = IconsAtlas(this)
+```kotlin
+val icons = IconsAtlas(resourcesVfs["gfx/icons.atlas.json"].readAtlas())
+image(icons.arrowDown)
+```
+
+Add this inline class for typed access:
+
+```kotlin
 inline class IconsAtlas(val atlas: Atlas) {
     val arrowDown get() = atlas["arrowDown.png"]
     val arrowLeft get() = atlas["arrowLeft.png"]
