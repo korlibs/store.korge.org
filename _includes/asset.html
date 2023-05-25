@@ -6,7 +6,7 @@
         <a href="{{ include.url }}" class="btn btn-primary" target="_blank" data-fancybox data-caption="Single image">👁️</a>
     {% endif %}
 
-    <button class="btn btn-success show-intellij-inline-block" onclick='return downloadAsset(this, {{ include.url | jsonify }}, false, {{ include.prefix | jsonify }}, undefined, {{ include.author }})'>
+    <button class="btn btn-success show-intellij-inline-block" onclick='return downloadAsset(this, {{ include.url | jsonify }}, {{ include.unzip | default: false | jsonify }}, {{ include.prefix | jsonify }}, undefined, {{ include.author }})'>
         💾
     </button>
 </p>
