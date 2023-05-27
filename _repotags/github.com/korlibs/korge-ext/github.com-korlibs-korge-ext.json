@@ -2,9 +2,11 @@
 layout: repotag
 title: github.com-korlibs-korge-ext
 tags:
+- v0.0.3: a88993c199f42cc00a2044b81b089a5cc3fb3a6b
 - 0.0.2: 143fcd75de1269d6425d51cd3d9a9b907c1d5c7a
 - 0.0.1: 7c4c3f6c11cd9d5662a49340a3b0c5dd8b0beaf2
 dates:
+  a88993c199f42cc00a2044b81b089a5cc3fb3a6b: '2023-05-27T11:25:12Z'
   143fcd75de1269d6425d51cd3d9a9b907c1d5c7a: '2023-05-03T11:22:10Z'
   7c4c3f6c11cd9d5662a49340a3b0c5dd8b0beaf2: '2023-05-03T10:10:32Z'
 ---
