@@ -23,6 +23,7 @@ import korlibs.korge.scene.Scene
 import korlibs.korge.tween.tween
 import korlibs.korge.view.*
 import korlibs.korge3d.*
+import korlibs.korge3d.shape.*
 import korlibs.math.geom.*
 import korlibs.time.seconds
 
@@ -34,7 +35,7 @@ class CratesScene : Scene() {
 
     override suspend fun SContainer.sceneInit() {
 
-        //val korgeTex = resourcesVfs["korge.png"].readNativeImage().mipmaps(false)
+        //val korgeTex = KR.korge.read()
 
         val crateTex = NativeImage(64, 64).context2d {
             fill(Colors.ROSYBROWN) {
@@ -50,7 +51,7 @@ class CratesScene : Scene() {
         //val crateTex = KR.dice.__file.readBitmap(QOI).mipmaps(true)
         val crateMaterial = Material3D(diffuse = Material3D.LightTexture(crateTex))
 
-        solidRect(512, 512, Colors.GREENYELLOW).alpha(0.5)
+        solidRect(512, 512, MaterialColors.AMBER_200).alpha(0.5)
         //image(korgeTex).alpha(0.5)
 
         scene3D {
@@ -58,8 +59,32 @@ class CratesScene : Scene() {
 
             //light().position(0, 0, -3)
 
+            //polyline3d { }
+            polyline3D(Colors.BLUEVIOLET) {
+                moveTo(Vector3(-10f, 0f, 0f))
+                lineTo(Vector3(10f, 0f, 0f))
+            }
+            polyline3D(Colors.MEDIUMVIOLETRED) {
+                moveTo(Vector3(0f, -10f, 0f))
+                lineTo(Vector3(0f, 10f, 0f))
+            }
+            polyline3D(Colors["#8cb04d"]) {
+                moveTo(Vector3(0f, 0f, -10f))
+                lineTo(Vector3(0f, 0f, 10f))
+            }
+            polyline3D(Colors.WHITE) {
+                moveTo(Vector3(0f, 0f, 0f))
+                lineTo(Vector3(2f, 0f, 0f))
+                moveTo(Vector3(0f, 0f, 0f))
+                lineTo(Vector3(0f, 2f, 0f))
+                moveTo(Vector3(0f, 0f, 0f))
+                lineTo(Vector3(0f, 0f, 2f))
+            }
             val cube1 = cube().material(crateMaterial)
-            sphere(2).position(1, 0, 0).material(crateMaterial)
+            sphere(1f).position(1, 0, 0).material(crateMaterial)
+            torus(1f).position(-1, 0, 0).material(crateMaterial)
+            cone(1f).position(0, -1, 0).material(crateMaterial)
+            cylinder(1f).position(0, -2, 0).material(crateMaterial)
             //cube(2.0, 2.0)
             val cube2 = cube().position(0, 2, 0).scale(1, 2, 1).rotation(0.degrees, 0.degrees, 45.degrees).material(crateMaterial)
             val cube3 = cube().position(-5, 0, 0).material(crateMaterial)
@@ -91,7 +116,7 @@ class CratesScene : Scene() {
         }
 
         solidRect(512, 512, Colors.BLUEVIOLET).position(views.virtualWidth, 0).anchor(1, 0).alpha(0.5)
-
+        //image(korgeTex).position(views.virtualWidth, 0).anchor(1, 0).alpha(0.5)
     }
 }
 ```
