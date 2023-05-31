@@ -9,6 +9,11 @@ show_screenshot: false
 
 Wizard Boy & Girl. Animations: `idle`, `gesture`, `walk`, `attack`, `death`
 
+License: CC-BY
+Author:
+* <https://twitter.com/calciumtrice>{:target=_blank}
+* <https://opengameart.org/users/calciumtrice>{:target=_blank}
+
 ## Wizard Boy
 
 ![](https://github.com/korlibs/korge-free-gfx/blob/main/Calciumtrice/wizard_gesture.gif?raw=true)
