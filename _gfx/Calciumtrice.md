@@ -1,6 +1,6 @@
 ---
 layout: gfx
-title: Dungeon assets
+title: Calciumtrice Dungeon assets
 authors: [Calciumtrice]
 enabled: true
 screenshot: https://github.com/korlibs/korge-free-gfx/blob/main/Calciumtrice/wizard_gesture.gif?raw=true
