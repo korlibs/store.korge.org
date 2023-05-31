@@ -15,14 +15,18 @@ priority: 1.0
 
 <script>
     async function fetchCommits() {
-        const fetchResult = await fetch("https://api.github.com/repos/korlibs/store.korge.org/commits?per_page=3")
+        const fetchResult = await fetch("https://api.github.com/repos/korlibs/store.korge.org/commits?per_page=5")
         const data = await fetchResult.json()
 
         let out = ""
         for (const row of data) {
             const rowCommit = row?.commit
             const rowAuthor = row?.commit?.author
-            out += `<li><a href="${row?.html_url}">${htmlspecialchars(`${rowCommit?.message}`)}</a> by ${htmlspecialchars(rowAuthor?.name)} on ${htmlspecialchars(rowAuthor?.date)}</li>`
+            out += `<li>
+                <a href="${row?.html_url}" target="_blank">${htmlspecialchars(`${rowCommit?.message}`)}</a>
+                by <a href="https://github.com/${htmlspecialchars(rowAuthor?.name)}" target="_blank">${htmlspecialchars(rowAuthor?.name)}</a>
+                on ${htmlspecialchars(rowAuthor?.date)}
+            </li>`
         }
         document.getElementById("changes").innerHTML = out
     }
