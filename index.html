@@ -4,6 +4,30 @@ title: KorGE Store Ecosystem (Assets, Modules & Libraries)
 priority: 1.0
 ---
 
+<div class="container">
+    <div class="row">
+        <h1>Latest changes 🆕</h1>
+    </div>
+    <div class="row">
+        <ul id="changes"></ul>
+    </div>
+</div>
+
+<script>
+    async function fetchCommits() {
+        const fetchResult = await fetch("https://api.github.com/repos/korlibs/store.korge.org/commits?per_page=3")
+        const data = await fetchResult.json()
+
+        let out = ""
+        for (const row of data) {
+            const rowCommit = row?.commit
+            const rowAuthor = row?.commit?.author
+            out += `<li><a href="${row?.html_url}">${htmlspecialchars(`${rowCommit?.message}`)}</a> by ${htmlspecialchars(rowAuthor?.name)} on ${htmlspecialchars(rowAuthor?.date)}</li>`
+        }
+        document.getElementById("changes").innerHTML = out
+    }
+    fetchCommits()
+</script>
 
 <div class="container hide-intellij">
     <div class="row">
