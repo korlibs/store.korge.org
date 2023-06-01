@@ -1,0 +1,14 @@
+{% assign all_credits = include.credits %}
+{% if include.credit %}
+{% assign all_credits = all_credits | append: include.credit %}
+{% endif %}
+{% if all_credits %}
+<h3>Credit:</h3>
+<div class="list-group">
+    {% for credit in all_credits %}
+    <div class="list-group-item list-group-item-action" style="font-size: 1.25em;">
+        {{ credit }}
+    </div>
+    {% endfor %}
+</div>
+{% endif %}

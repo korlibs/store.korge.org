@@ -1,0 +1,14 @@
+{% assign all_sources = include.sources %}
+{% if include.source %}
+{% assign all_sources = all_sources | append: include.source %}
+{% endif %}
+{% if all_sources %}
+<h3>Source:</h3>
+<div class="list-group">
+    {% for source in all_sources %}
+    <a class="list-group-item list-group-item-action" style="font-size: 1.25em;white-space: nowrap; overflow:hidden; text-overflow: ellipsis;" href="{{ source }}" target="_blank">
+        {{ source }}
+    </a>
+    {% endfor %}
+</div>
+{% endif %}

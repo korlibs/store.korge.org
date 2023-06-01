@@ -1,0 +1,14 @@
+{% assign all_licenses = include.licenses %}
+{% if include.license %}
+{% assign all_licenses = all_licenses | append: include.license %}
+{% endif %}
+{% if all_licenses %}
+<h3>License:</h3>
+<div class="list-group">
+    {% for license in all_licenses %}
+    <div class="list-group-item list-group-item-action" style="font-size: 1.25em;white-space: nowrap">
+        {{ license }}
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
