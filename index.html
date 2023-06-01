@@ -24,8 +24,10 @@ priority: 1.0
             const rowAuthor = row?.commit?.author
             out += `<li>
                 <a href="${row?.html_url}" target="_blank">${htmlspecialchars(`${rowCommit?.message}`)}</a>
-                by <a href="https://github.com/${htmlspecialchars(rowAuthor?.name)}" target="_blank">${htmlspecialchars(rowAuthor?.name)}</a>
+                <small style="color:#999 !important;">
+                by <a style="color:#999 !important;" href="https://github.com/${htmlspecialchars(rowAuthor?.name)}" target="_blank">${htmlspecialchars(rowAuthor?.name)}</a>
                 on ${htmlspecialchars(new Date(rowAuthor?.date)?.toLocaleDateString?.("en-US"))}
+                </small>
             </li>`
         }
         document.getElementById("changes").innerHTML = out
