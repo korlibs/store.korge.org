@@ -2,7 +2,7 @@
 layout: starterkit
 title: Xenotactic
 repo: https://github.com/korge-showcases/XenoTacticKProject
-screenshot: /i/showcases/korge-chess.png
+screenshot: /i/showcases/xenotactic.png
 authors: [Kietyo]
 branch: master
 enabled: true
