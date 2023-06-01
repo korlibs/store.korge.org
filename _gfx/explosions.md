@@ -1,6 +1,6 @@
 ---
 layout: gfx
-title: Explosions GFX
+title: Cuzco Explosions GFX
 authors: [Cuzco]
 enabled: true
 screenshot: https://raw.githubusercontent.com/korlibs/korge-free-gfx/main/explosion/exp2.jpg
