@@ -5,10 +5,12 @@ authors: ["https://www.kenney.nl/"]
 enabled: true
 screenshot: https://github.com/korlibs/korge-free-gfx/blob/5d2afe10ac98fe6f94433cf2baed23330c860fb0/kenney-game-icons/kenney_game_icons_preview.png?raw=true
 show_screenshot: false
+license: CC0
+credit: "Created by https://kenney.nl/"
+sources:
+- https://opengameart.org/content/game-icons
+- https://opengameart.org/content/game-icons-expansion
 ---
-
-* <https://opengameart.org/content/game-icons>
-* <https://opengameart.org/content/game-icons-expansion>
 
 LICENSE CC0: Created by <https://kenney.nl/>
 

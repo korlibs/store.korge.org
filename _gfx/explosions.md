@@ -5,6 +5,8 @@ authors: [Cuzco]
 enabled: true
 screenshot: https://raw.githubusercontent.com/korlibs/korge-free-gfx/main/explosion/exp2.jpg
 show_screenshot: false
+license: CC0
+source: "https://opengameart.org/content/explosion"
 ---
 
 ## Explosions
