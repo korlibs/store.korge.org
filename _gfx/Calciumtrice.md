@@ -1,7 +1,8 @@
 ---
 layout: gfx
 title: Calciumtrice Dungeon assets
-authors: [Calciumtrice]
+authors: 
+- { title: "Calciumtrice", url: "https://twitter.com/calciumtrice", image: "https://pbs.twimg.com/profile_images/1282712290593312769/YPkbqLUC_400x400.jpg" }
 enabled: true
 screenshot: https://github.com/korlibs/korge-free-gfx/blob/main/Calciumtrice/wizard_gesture.gif?raw=true
 show_screenshot: false
