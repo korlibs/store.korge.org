@@ -25,7 +25,7 @@ priority: 1.0
             out += `<li>
                 <a href="${row?.html_url}" target="_blank">${htmlspecialchars(`${rowCommit?.message}`)}</a>
                 by <a href="https://github.com/${htmlspecialchars(rowAuthor?.name)}" target="_blank">${htmlspecialchars(rowAuthor?.name)}</a>
-                on ${htmlspecialchars(rowAuthor?.date)}
+                on ${htmlspecialchars(new Date(rowAuthor?.date)?.toLocaleDateString?.("en-US"))}
             </li>`
         }
         document.getElementById("changes").innerHTML = out
