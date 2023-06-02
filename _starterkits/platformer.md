@@ -10,3 +10,5 @@ order: 2
 ---
 
 Shows how to use DragonBones, the Korge Mascots, the VirtualController and LDtk maps to create a Platformer game.
+
+[Playable here](https://korlibs.github.io/korge-starter-kit-platformer/)
