@@ -11,21 +11,43 @@ credit: By twitter.com/calciumtrice
 sources:
 - https://twitter.com/calciumtrice
 - https://opengameart.org/users/calciumtrice
+assets:
+- title: Wizard Boy
+  name: wizard_boy
+  preview: https://github.com/korlibs/korge-free-gfx/blob/main/Calciumtrice/wizard_gesture.gif?raw=true
+  download: https://raw.githubusercontent.com/korlibs/korge-free-gfx/main/Calciumtrice/wizard_boy.ase
+- title: Wizard Girl
+  name: wizard_girl
+  preview: https://github.com/korlibs/korge-free-gfx/blob/main/Calciumtrice/wizard_walk.gif?raw=true
+  download: https://raw.githubusercontent.com/korlibs/korge-free-gfx/main/Calciumtrice/wizard_girl.ase
+- title: Orc 1
+  name: orc1
+  preview: https://github.com/korlibs/korge-free-gfx/blob/main/Calciumtrice/orc1.gif?raw=true
+  download: https://raw.githubusercontent.com/korlibs/korge-free-gfx/main/Calciumtrice/orc1.ase
+- title: Orc 2
+  name: orc2
+  preview: https://github.com/korlibs/korge-free-gfx/blob/main/Calciumtrice/orc2.gif?raw=true
+  download: https://raw.githubusercontent.com/korlibs/korge-free-gfx/main/Calciumtrice/orc2.ase
 ---
 
-Wizard Boy & Girl. Animations: `idle`, `gesture`, `walk`, `attack`, `death`
+Wizard Boy & Girl + Orcs.
 
-## Wizard Boy
+Animations: `idle`, `gesture`, `walk`, `attack`, `death`
 
-![](https://github.com/korlibs/korge-free-gfx/blob/main/Calciumtrice/wizard_gesture.gif?raw=true)
+<div class="container-fluid" markdown="1"><div class="row">
 
-{% include asset.html name="wizard_boy" prefix="gfx" url="https://raw.githubusercontent.com/korlibs/korge-free-gfx/main/Calciumtrice/wizard_boy.ase" %}
+{% for asset in page.assets %}
 
-## Wizard Girl
+<div class="col-md-6" markdown="1">
+## {{ asset.title }}
+![]({{ asset.preview }})
+{% include asset.html name=asset.name prefix="gfx" url=asset.download %}
+</div>
 
-![](https://github.com/korlibs/korge-free-gfx/blob/main/Calciumtrice/wizard_walk.gif?raw=true)
+{% endfor %}
 
-{% include asset.html name="wizard_girl" prefix="gfx" url="https://raw.githubusercontent.com/korlibs/korge-free-gfx/main/Calciumtrice/wizard_girl.ase" %}
+</div>
+</div>
 
 ## Usage code
 
