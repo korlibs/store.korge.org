@@ -4,7 +4,7 @@ title: Calciumtrice Dungeon assets
 authors: 
 - { title: "Calciumtrice", url: "https://twitter.com/calciumtrice", image: "https://pbs.twimg.com/profile_images/1282712290593312769/YPkbqLUC_400x400.jpg" }
 enabled: true
-screenshot: https://github.com/korlibs/korge-free-gfx/blob/main/Calciumtrice/wizard_gesture.gif?raw=true
+screenshot: https://raw.githubusercontent.com/korlibs/korge-free-gfx/ca040dd1b403c8d95eac27a28a29f4c81a1247c0/Calciumtrice/humans/wizard/wizard_f.gif
 show_screenshot: false
 license: CC-BY-4.0
 credit: By twitter.com/calciumtrice
