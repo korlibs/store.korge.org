@@ -1,0 +1,13 @@
+
+<div class="container-fluid" markdown="1"><div class="row">
+{% for asset in include.assets %}
+{% capture asset_preview %}{{ include.assets_base }}{{ asset.preview }}{% endcapture %}
+{% capture asset_download %}{{ include.assets_base }}{{ asset.download }}{% endcapture %}
+<div class="col-md-6" markdown="1">
+<h2>{{ asset.title }}</h2>
+<img src="{{ asset_preview }}" />
+{% include asset.html name=asset.name prefix="gfx" url=asset_download %}
+</div>
+{% endfor %}
+</div>
+</div>
