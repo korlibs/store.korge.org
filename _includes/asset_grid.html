@@ -5,7 +5,7 @@
 {% capture asset_download %}{{ include.assets_base }}{{ asset.download }}{% endcapture %}
 <div class="col-md-6" markdown="1">
 <h2>{{ asset.title }}</h2>
-<img src="{{ asset_preview }}" />
+<img src="{{ asset_preview }}" style="max-width: 100%;" />
 {% include asset.html name=asset.name prefix="gfx" url=asset_download %}
 </div>
 {% endfor %}

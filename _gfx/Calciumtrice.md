@@ -4,14 +4,14 @@ title: Calciumtrice Dungeon assets
 authors: 
 - { title: "Calciumtrice", url: "https://twitter.com/calciumtrice", image: "https://pbs.twimg.com/profile_images/1282712290593312769/YPkbqLUC_400x400.jpg" }
 enabled: true
-screenshot: https://raw.githubusercontent.com/korlibs/korge-free-gfx/ca040dd1b403c8d95eac27a28a29f4c81a1247c0/Calciumtrice/humans/wizard/wizard_f.gif
+screenshot: https://raw.githubusercontent.com/korlibs/korge-free-gfx/ac1e220943da603f5f339518082248516705b1a9/Calciumtrice/humans/wizard/wizard_f.gif
 show_screenshot: false
 license: CC-BY-4.0
 credit: By twitter.com/calciumtrice
 sources:
 - https://twitter.com/calciumtrice
 - https://opengameart.org/users/calciumtrice
-assets_base: https://raw.githubusercontent.com/korlibs/korge-free-gfx/549debc5e6a13e0bbaf78e2a33e8fb0425f53483/Calciumtrice/
+assets_base: https://raw.githubusercontent.com/korlibs/korge-free-gfx/ac1e220943da603f5f339518082248516705b1a9/Calciumtrice/
 assets:
 - { title: Wizard Male, name: wizard_m, preview: humans/wizard/wizard_m.gif, download: humans/wizard/wizard_m.ase }
 - { title: Wizard Female, name: wizard_f, preview: humans/wizard/wizard_f.gif, download: humans/wizard/wizard_f.ase }
@@ -38,7 +38,7 @@ assets:
 - { title: Slime Yellow, name: slime_yellow, preview: enemies/slime/slime_yellow.gif, download: enemies/slime/slime_yellow.ase }
 tile_assets:
 - { title: Dungeon Tileset, name: dungeon_tileset_calciumtrice, preview: tiles/dungeon_tileset_calciumtrice.png, download: tiles/dungeon_tileset_calciumtrice.png }
-- { title: LDtk Base Map, name: dungeon_tilesmap_calciumtrice, preview: tiles/dungeon_tilesmap_calciumtrice.ldtk, download: tiles/dungeon_tilesmap_calciumtrice.ldtk }
+- { title: LDtk Base Map, name: dungeon_tilesmap_calciumtrice, preview: tiles/eggs0.png, download: tiles/dungeon_tilesmap_calciumtrice.ldtk }
 ---
 
 Wizard Boy & Girl + Orcs.
