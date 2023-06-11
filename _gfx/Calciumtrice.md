@@ -70,3 +70,4 @@ imageDataView(wizardFemale.default).scale(4, 4).also { it.smoothing = false }.al
 
 {% include asset_grid.html assets_base=page.assets_base assets=page.tile_assets %}
 
+Required the [LDtk extension](/module/korge-ldtk/).
