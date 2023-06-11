@@ -11,7 +11,7 @@ credit: By twitter.com/calciumtrice
 sources:
 - https://twitter.com/calciumtrice
 - https://opengameart.org/users/calciumtrice
-assets_base: https://raw.githubusercontent.com/korlibs/korge-free-gfx/ca040dd1b403c8d95eac27a28a29f4c81a1247c0/Calciumtrice/
+assets_base: https://raw.githubusercontent.com/korlibs/korge-free-gfx/549debc5e6a13e0bbaf78e2a33e8fb0425f53483/Calciumtrice/
 assets:
 - { title: Wizard Male, name: wizard_m, preview: humans/wizard/wizard_m.gif, download: humans/wizard/wizard_m.ase }
 - { title: Wizard Female, name: wizard_f, preview: humans/wizard/wizard_f.gif, download: humans/wizard/wizard_f.ase }
