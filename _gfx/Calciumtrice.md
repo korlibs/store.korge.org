@@ -38,6 +38,7 @@ assets:
 - { title: Slime Yellow, name: slime_yellow, preview: enemies/slime/slime_yellow.gif, download: enemies/slime/slime_yellow.ase }
 tile_assets:
 - { title: Dungeon Tileset, name: dungeon_tileset_calciumtrice, preview: tiles/dungeon_tileset_calciumtrice.png, download: tiles/dungeon_tileset_calciumtrice.png }
+- { title: LDtk Base Map, name: dungeon_tilesmap_calciumtrice, preview: tiles/dungeon_tilesmap_calciumtrice.ldtk, download: tiles/dungeon_tilesmap_calciumtrice.ldtk }
 ---
 
 Wizard Boy & Girl + Orcs.
