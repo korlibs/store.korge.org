@@ -4,7 +4,7 @@ title: CodeManu VFS Free Pack
 authors: 
 - { title: "CodeManu", url: "https://twitter.com/CodeManuPro", image: "https://img.itch.zone/aW1nLzIxMzQ0OTgucG5n/original/WoHQim.png" }
 enabled: true
-screenshot: https://raw.githubusercontent.com/korlibs/korge-free-gfx/ec92e52bd2a547fb40433731ed3ba181601556da/CodeManuPro/Effect_Hyperspeed.gif
+screenshot: https://raw.githubusercontent.com/korlibs/korge-free-gfx/3908cfda7a5672e974c9222996f34e9f300fc74b/CodeManuPro/icon.png
 show_screenshot: false
 license: CC0
 credit: By CodeManuPro
