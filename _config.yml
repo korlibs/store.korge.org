@@ -31,3 +31,7 @@ collections:
     sort_by: order
     output: true
     permalink: /gfx/:title/
+  fonts:
+    sort_by: order
+    output: true
+    permalink: /fonts/:title/

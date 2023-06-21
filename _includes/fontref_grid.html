@@ -1,0 +1,12 @@
+
+<div class="container-fluid" markdown="1"><div class="row">
+{% for asset in include.assets %}
+{% capture asset_download %}{{ include.assets_base }}{{ asset.download }}{% endcapture %}
+{% capture asset_name %}{{ asset.name | default: asset.download }}{% endcapture %}
+<div class="col-md-6" markdown="1">
+<h2>{{ asset_title }}</h2>
+{% include fontref.html name=asset_name prefix="fonts" url=asset_download %}
+</div>
+{% endfor %}
+</div>
+</div>

@@ -1,0 +1,19 @@
+<style>
+    @font-face {
+        font-family: '{{ include.name }}';
+        src: url('{{ include.url }}');
+    }
+</style>
+
+<div class="card" style="width: 18rem;">
+    <!--<img src="..." class="card-img-top" alt="...">-->
+    <div class="card-body">
+        <h5 class="card-title" style="font-family: {{ include.name }}, serif;">{{ include.name }}</h5>
+        <textarea style="width:100%;min-height:5em;font-family: {{ include.name }}, serif;">The quick brown fox jumps over a lazy dog. áéíóúàèìòùñü</textarea>
+        <a href="{{ include.url }}" class="btn btn-primary" target="_blank">👁️</a>
+        <button class="btn btn-success show-intellij-inline-block" onclick='return downloadAsset(this, {{ include.url | jsonify }}, {{ include.unzip | default: false | jsonify }}, {{ include.prefix | jsonify }}, undefined, {{ include.author }})'>
+            💾
+        </button>
+
+    </div>
+</div>
