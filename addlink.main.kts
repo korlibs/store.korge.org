@@ -4,6 +4,8 @@
 @file:Repository("https://repo1.maven.org/maven2/")
 @file:DependsOn("org.yaml:snakeyaml:2.0")
 @file:DependsOn("com.soywiz.korlibs.korio:korio-jvm:4.0.0-rc5")
+//@file:Import("./addlink.shared.main.kts")
+@file:CompilerOptions("-Xopt-in=kotlin.RequiresOptIn")
 
 import korlibs.io.dynamic.dyn
 import korlibs.io.file.PathInfo

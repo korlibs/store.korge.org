@@ -2,7 +2,9 @@
 layout: repotag
 title: github.com-korlibs-korge-dragonbones
 tags:
+- v0.0.5: e82e3f49753f6231532c44d9b5cfda03660098a0
 - 0.0.4: 84735fb83df956e2532eb32deac7e85c4679be74
 dates:
+  e82e3f49753f6231532c44d9b5cfda03660098a0: '2023-06-29T09:40:52Z'
   84735fb83df956e2532eb32deac7e85c4679be74: '2023-05-02T20:02:23Z'
 ---
