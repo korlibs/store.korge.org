@@ -2,7 +2,9 @@
 layout: repotag
 title: github.com-korlibs-korge-audio-formats
 tags:
+- v0.0.2: 132fb25230d38ae55bff155583b010fa1f0a5530
 - 0.0.1: 05abfd6f151fa578e0c690f7725d741784bdfe53
 dates:
+  132fb25230d38ae55bff155583b010fa1f0a5530: '2023-07-01T01:56:46Z'
   05abfd6f151fa578e0c690f7725d741784bdfe53: '2023-05-03T10:39:59Z'
 ---
