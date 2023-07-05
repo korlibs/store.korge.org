@@ -27,6 +27,24 @@ assertEquals(PointInt(18, 16), result?.toInt())
 ## Visual testing scene
 
 ```kotlin
+import korlibs.datastructure.*
+import korlibs.image.atlas.*
+import korlibs.image.bitmap.*
+import korlibs.image.color.*
+import korlibs.image.tiles.*
+import korlibs.korge.*
+import korlibs.korge.input.*
+import korlibs.korge.scene.*
+import korlibs.korge.view.*
+import korlibs.korge.view.tiles.*
+import korlibs.math.geom.*
+import korlibs.math.geom.Circle
+import korlibs.math.raycasting.*
+
+suspend fun main() = Korge {
+    sceneContainer().changeTo({ RaycastingExampleScene()})
+}
+
 class RaycastingExampleScene : Scene() {
     @KeepOnReload
     var startPoint: Point = Point(300, 300)
@@ -108,5 +126,6 @@ class RaycastingExampleScene : Scene() {
         }
     }
 }
+
 ```
 
