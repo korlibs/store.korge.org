@@ -3,8 +3,15 @@ layout: null
 noindex: true
 ---
 
-{%- assign entries_unfiltered = site.pages | sort: "priority", "last" -%}
-{%- assign entries = entries_unfiltered | where_exp:"item","item.noindex != true" -%}
+{%- assign all_pages = "" | split: "" -%}
+
+{%- for entry in site.modules -%}{%- assign all_pages = all_pages | push: entry -%}{%- endfor -%}
+{%- for entry in site.sfx -%}{%- assign all_pages = all_pages | push: entry -%}{%- endfor -%}
+{%- for entry in site.gfx -%}{%- assign all_pages = all_pages | push: entry -%}{%- endfor -%}
+{%- for entry in site.fonts -%}{%- assign all_pages = all_pages | push: entry -%}{%- endfor -%}
+
+{%- assign entries_unfiltered = all_pages | sort: "priority", "last" -%}
+{%- assign entries = all_pages | where_exp:"item","item.noindex != true" -%}
 {% for entry in entries %}
 !!!$PAGE$!!!{{ entry.url }}
 <html>
