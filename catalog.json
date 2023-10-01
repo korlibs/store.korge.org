@@ -1,0 +1,9 @@
+---
+layout: null
+kinds:
+- { id: "sfx", name: "sfx" }
+- { id: "gfx", name: "gfx" }
+- { id: "fonts", name: "fonts" }
+- { id: "modules", name: "modules" }
+---
+{% include cat.json kinds=page.kinds %}

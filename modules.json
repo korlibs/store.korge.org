@@ -1,0 +1,6 @@
+---
+layout: null
+kinds:
+- { id: "modules", name: "modules" }
+---
+{% include cat.json kinds=page.kinds %}

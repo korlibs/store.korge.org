@@ -1,0 +1,6 @@
+---
+layout: null
+kinds:
+- { id: "gfx", name: "gfx" }
+---
+{% include cat.json kinds=page.kinds %}

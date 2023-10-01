@@ -1,0 +1,18 @@
+[
+  {%- for kind in include.kinds -%}
+  {%- assign kits = site[kind.id] | sort: "order" -%}
+  {%- assign lastKind = forloop.last -%}
+  {% for kit in kits -%}
+  {
+  "title": {{ kit.title | jsonify }},
+  "category": {{ kind.name | jsonify }},
+  "authors": {{ kit.authors | jsonify }},
+  "enabled": {{ kit.enabled | jsonify }},
+  "screenshot": {{ kit.screenshot | absolute_url | jsonify }},
+  "url": {{ kit.url | absolute_url | jsonify }}
+}
+  {%- if forloop.last and lastKind -%}{% else %},{%- endif -%}
+
+  {%- endfor %}
+  {%- endfor -%}
+]
