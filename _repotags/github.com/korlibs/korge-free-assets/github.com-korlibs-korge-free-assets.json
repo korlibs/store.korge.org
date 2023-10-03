@@ -2,7 +2,9 @@
 layout: repotag
 title: github.com-korlibs-korge-free-assets
 tags:
+- v1.0.0: e63e6988d1c826df6c5b9973c787c23834caff61
 - 0.0.1: dde5dffc8cbb72420600c4c9d78793d01ca444bf
 dates:
+  e63e6988d1c826df6c5b9973c787c23834caff61: '2023-10-03T15:48:40Z'
   dde5dffc8cbb72420600c4c9d78793d01ca444bf: '2023-05-09T19:08:22Z'
 ---

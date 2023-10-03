@@ -139,7 +139,16 @@ fun addTagToMap(data: MutableMap<String, Any?>, vtag: TagInfo) {
     println(" -> ${dates[vtag.commitId]}")
 }
 
-for (url in args) {
+var rargs = args.toList()
+rargs = rargs.flatMap {
+    if (it.startsWith("@")) {
+        File(it.substring(1)).readLines()
+    } else {
+        listOf(it)
+    }
+}
+
+for (url in rargs) {
     val match = GITHUB_TREE_URL_REGEX.matchEntire(url) ?: error("URL '$url' doesn't match <$GITHUB_TREE_URL_REGEX>")
 
     val org = PathInfo(match.groupValues[1]).baseName

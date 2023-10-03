@@ -2,9 +2,13 @@
 layout: repotag
 title: github.com-korlibs-korge-mascots
 tags:
+- v1.0.0: dd8f5d14fa7b637dfdcfd2fc76d3cbf612f7b72e
+- 0.0.3: bb1a22dfbf13ac52e19b4149a5a64a922c8bb367
 - 0.0.2: c3a96735093db864abee2a70386c5f6f15c20cfe
 - 0.0.1: 1367440b671df90cb9f3a5619bc019f8b52af27f
 dates:
+  dd8f5d14fa7b637dfdcfd2fc76d3cbf612f7b72e: '2023-10-02T15:50:23Z'
+  bb1a22dfbf13ac52e19b4149a5a64a922c8bb367: '2023-09-28T18:40:48Z'
   c3a96735093db864abee2a70386c5f6f15c20cfe: '2023-05-05T01:23:53Z'
   1367440b671df90cb9f3a5619bc019f8b52af27f: '2023-05-04T21:28:08Z'
 ---

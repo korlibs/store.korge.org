@@ -1,3 +1,5 @@
 /_site
 /.idea
+/args.txt
+/@args.txt
 .DS_Store

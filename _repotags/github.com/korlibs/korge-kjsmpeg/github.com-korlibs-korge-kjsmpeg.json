@@ -2,7 +2,9 @@
 layout: repotag
 title: github.com-korlibs-korge-kjsmpeg
 tags:
+- v0.0.2: ca34acbe058a82f112dcf9a34a9478ed0b2aa957
 - 0.0.1: e20fc80d318f26232579f96869b00fe9c1a3a08f
 dates:
+  ca34acbe058a82f112dcf9a34a9478ed0b2aa957: '2023-10-03T07:35:10Z'
   e20fc80d318f26232579f96869b00fe9c1a3a08f: '2023-05-10T19:40:38Z'
 ---

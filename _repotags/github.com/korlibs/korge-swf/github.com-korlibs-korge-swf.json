@@ -2,7 +2,9 @@
 layout: repotag
 title: github.com-korlibs-korge-swf
 tags:
+- v1.0.0: 69774ba30ecd850790efb5f462b924aa54567c0f
 - 0.0.1: d4d208474a9496c974b2f65725b9f6dabf4e163d
 dates:
+  69774ba30ecd850790efb5f462b924aa54567c0f: '2023-10-03T16:22:16Z'
   d4d208474a9496c974b2f65725b9f6dabf4e163d: '2023-05-03T10:24:35Z'
 ---
