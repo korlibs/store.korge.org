@@ -2,9 +2,11 @@
 layout: repotag
 title: github.com-korlibs-korge-lipsync
 tags:
+- v0.1.1: 92af40b1661c2760a7163334a2f3bb8a9b9e90bd
 - v0.1.0: fd681bfac2fd2af9218fcabf2df642676232fb0b
 - 0.0.1: 2c4aab3efa103138e2f133d4890507e36a77acd8
 dates:
+  92af40b1661c2760a7163334a2f3bb8a9b9e90bd: '2023-10-04T19:52:53Z'
   fd681bfac2fd2af9218fcabf2df642676232fb0b: '2023-10-03T16:55:51Z'
   2c4aab3efa103138e2f133d4890507e36a77acd8: '2023-04-21T07:30:05Z'
 ---
