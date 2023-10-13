@@ -1,5 +1,5 @@
 {
   "scripts": {
-    "start" : "jekyll s --watch --livereload --port=4001"
+    "start" : "jekyll s --watch --livereload --port=4000"
   }
 }

@@ -37,7 +37,13 @@ priority: 1.0
 
 <div class="container hide-intellij">
     <div class="row">
-        <h1>Starter Kits<a href="/starterkits.json" target="_blank"><code>.json</code></a></h1>
+    <form style="width:100%;">
+        <div class="form-group" style="width:100%;">
+            <label style="width:100%;">
+                <input id="search_field" autofocus placeholder="Search..." class="form-control" type="search" style="width:100%;" />
+            </label>
+        </div>
+    </form>
     </div>
 
 <!--
@@ -68,19 +74,25 @@ priority: 1.0
     </button>
 </div>
 -->
+    <div class="subsection">
+    <div class="row">
+        <h1>Starter Kits<a href="/starterkits.json" target="_blank"><code>.json</code></a></h1>
+    </div>
+
     <div class="jumbotron" style="padding: 1rem 2rem;background:rgba(0,0,0,0.1);">
         <div class="row">
             {% assign kits = site.starterkits | sort: "order" %}
             {% for kit in kits %}
             {% if kit.enabled %}
-                {% include card.html title=kit.title screenshot=kit.screenshot url=kit.url %}
+                {% include card.html title=kit.title content=kit.content screenshot=kit.screenshot url=kit.url %}
             {% endif %}
             {% endfor %}
         </div>
     </div>
+    </div>
 </div>
 
-<div class="container hide-intellij">
+<div class="section subsection container hide-intellij">
     <div class="row">
         <h1>Showcases<a href="/showcases.json" target="_blank"><code>.json</code></a></h1>
     </div>
@@ -89,14 +101,14 @@ priority: 1.0
             {% assign kits = site.showcases | sort: "order" %}
             {% for kit in kits %}
             {% if kit.enabled %}
-            {% include card.html title=kit.title screenshot=kit.screenshot url=kit.url %}
+            {% include card.html title=kit.title content=kit.content screenshot=kit.screenshot url=kit.url %}
             {% endif %}
             {% endfor %}
         </div>
     </div>
 </div>
 
-<div class="container">
+<div class="section subsection container">
     <div class="row">
         <h1>GFX<a href="/gfx.json" target="_blank"><code>.json</code></a></h1>
     </div>
@@ -105,14 +117,14 @@ priority: 1.0
             {% assign kits = site.gfx | sort: "order" %}
             {% for kit in kits %}
             {% if kit.enabled %}
-            {% include card.html title=kit.title screenshot=kit.screenshot url=kit.url %}
+            {% include card.html title=kit.title content=kit.content screenshot=kit.screenshot url=kit.url %}
             {% endif %}
             {% endfor %}
         </div>
     </div>
 </div>
 
-<div class="container">
+<div class="section subsection container">
     <div class="row">
         <h1>SFX<a href="/sfx.json" target="_blank"><code>.json</code></a></h1>
     </div>
@@ -121,14 +133,14 @@ priority: 1.0
             {% assign kits = site.sfx | sort: "order" %}
             {% for kit in kits %}
             {% if kit.enabled %}
-            {% include card.html title=kit.title screenshot=kit.screenshot url=kit.url %}
+            {% include card.html title=kit.title content=kit.content screenshot=kit.screenshot url=kit.url %}
             {% endif %}
             {% endfor %}
         </div>
     </div>
 </div>
 
-<div class="container">
+<div class="section subsection container">
     <div class="row">
         <h1>Fonts<a href="/fonts.json" target="_blank"><code>.json</code></a></h1>
     </div>
@@ -137,31 +149,28 @@ priority: 1.0
             {% assign kits = site.fonts | sort: "order" %}
             {% for kit in kits %}
             {% if kit.enabled %}
-            {% include card.html title=kit.title screenshot=kit.screenshot url=kit.url %}
+            {% include card.html title=kit.title content=kit.content screenshot=kit.screenshot url=kit.url %}
             {% endif %}
             {% endfor %}
         </div>
     </div>
 </div>
 
-<div class="container">
+<div class="section container">
     <div class="row">
-    <h1>Libraries & Modules<a href="/modules.json" target="_blank"><code>.json</code></a></h1>
+        <h1>Libraries & Modules<a href="/modules.json" target="_blank"><code>.json</code></a></h1>
     </div>
-</div>
-
-<div class="container">
     <div class="row">
         {% assign grouped_modules = site.modules | group_by: "category" | sort: "name" %}
         {% for grouped_module in grouped_modules %}
             {% assign modules = grouped_module.items %}
-            <div class="jumbotron col-12 {% if modules.size <= 3 %}col-lg-4{% endif %}" style="padding: 0.25rem 2rem;border-radius:0;background:rgba(0,0,0,0.1);">
+            <div class="subsection jumbotron col-12 {% if modules.size <= 3 %}col-lg-4{% endif %}" style="padding: 0.25rem 2rem;border-radius:0;background:rgba(0,0,0,0.1);">
                 <div class="container-fluid">
                 <div class="row">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb" style="background:none;margin-bottom:0;">
                             <li class="breadcrumb-item active" aria-current="page">
-                                <h2>{{ grouped_module.name }}</h2>
+                                <h2 class="section-title">{{ grouped_module.name }}</h2>
                             </li>
                         </ol>
                     </nav>
@@ -169,7 +178,7 @@ priority: 1.0
                 <div class="row">
                     {% for module in modules %}
                     {% if module.enabled != false %}
-                        {% include card.html title=module.title show_title=module.show_title screenshot=module.icon screenshot_size=module.icon_size screenshot_position=module.icon_position url=module.url %}
+                        {% include card.html title=module.title content=module.content show_title=module.show_title screenshot=module.icon screenshot_size=module.icon_size screenshot_position=module.icon_position url=module.url %}
                     {% endif %}
                     {% endfor %}
                 </div>
@@ -317,5 +326,42 @@ priority: 1.0
             document.location = htmlElement.querySelector("a").href
         })
     })
+
+    const search_field = document.querySelector("#search_field")
+    const all_subsections = document.querySelectorAll(".subsection")
+    search_field.addEventListener("input", (e) => {
+        const value = `${e.target.value}`
+        const valueRegex = new RegExp(value.replace(/\s+/g, "\\s*"), "dmsi")
+        console.log("valueRegex", valueRegex)
+        for (const subsection of all_subsections) {
+            const sectionTextList = subsection.querySelectorAll("h1.section-title, h2.section-title, h3.section-title")
+            const sectionText = Array.from(sectionTextList).map(it => it.textContent).join("\n")
+            const sectionTest = valueRegex.test(sectionText)
+            const all_cards = subsection.querySelectorAll(".card")
+            let visibleCount = 0
+            for (const card of all_cards) {
+                const cardText = card.textContent.trim()
+                if (sectionTest || valueRegex.test(cardText)) {
+                    visibleCount++
+                    card.classList.remove("d-none")
+                } else {
+                    card.classList.add("d-none")
+                }
+            }
+            if (visibleCount > 0) {
+                subsection.classList.remove("d-none")
+            } else {
+                subsection.classList.add("d-none")
+            }
+        }
+        //console.log(value, all_cards);
+    })
 </script>
 
+<style>
+    div:empty {
+        outline: 2px solid deeppink;
+        height: 1em;
+    }
+
+</style>
