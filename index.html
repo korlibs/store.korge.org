@@ -35,17 +35,20 @@ priority: 1.0
     fetchCommits()
 </script>
 
-<div class="container hide-intellij">
+<div class="container">
     <div class="row">
-    <form style="width:100%;">
-        <div class="form-group" style="width:100%;">
-            <label style="width:100%;">
-                <input id="search_field" autofocus placeholder="Search..." class="form-control" type="search" style="width:100%;" />
-            </label>
-        </div>
-    </form>
+        <form style="width:100%;">
+            <div class="form-group" style="width:100%;">
+                <label style="width:100%;">
+                    <input id="search_field" autofocus placeholder="Search..." class="form-control" type="search" style="width:100%;" />
+                </label>
+            </div>
+        </form>
     </div>
 
+</div>
+
+<div class="container hide-intellij">
 <!--
 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
     <ol class="carousel-indicators">
@@ -357,11 +360,3 @@ priority: 1.0
         //console.log(value, all_cards);
     })
 </script>
-
-<style>
-    div:empty {
-        outline: 2px solid deeppink;
-        height: 1em;
-    }
-
-</style>
