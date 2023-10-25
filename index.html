@@ -6,11 +6,17 @@ priority: 1.0
 
 <div class="container">
     <div class="row">
-        <h1><a href="https://github.com/korlibs/store.korge.org/commits/main" target="_blank">Latest changes 🆕</a> (<a href="https://github.com/korlibs/store.korge.org/commits/main.atom" target="_blank">RSS</a>)</h1>
     </div>
     <div class="row">
-        <ul id="changes"></ul>
+        <div class="col col-6">
+            <h1><a href="https://github.com/korlibs/store.korge.org/commits/main" target="_blank">Latest changes 🆕</a> (<a href="https://github.com/korlibs/store.korge.org/commits/main.atom" target="_blank">RSS</a>)</h1>
+            <ul id="changes"></ul>
+        </div>
+        <div class="col col-6">
+            {% include ads.html %}
+        </div>
     </div>
+
 </div>
 
 <script>
@@ -34,6 +40,7 @@ priority: 1.0
     }
     fetchCommits()
 </script>
+
 
 <div class="container">
     <div class="row">
