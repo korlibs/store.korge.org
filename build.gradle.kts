@@ -1,24 +1,22 @@
-#!/usr/bin/env kotlin
+import korlibs.io.file.*
+import korlibs.io.file.std.*
+import korlibs.io.net.*
+import kotlinx.coroutines.*
+import org.yaml.snakeyaml.*
+import java.time.*
+import java.util.*
 
-//@Repository("")
-@file:Repository("https://repo1.maven.org/maven2/")
-@file:DependsOn("org.yaml:snakeyaml:2.0")
-@file:DependsOn("com.soywiz.korlibs.korio:korio-jvm:4.0.7")
-//@file:Import("./addlink.shared.main.kts")
-@file:CompilerOptions("-Xopt-in=kotlin.RequiresOptIn")
+buildscript {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.yaml:snakeyaml:2.0")
+        classpath("com.soywiz.korlibs.korio:korio-jvm:4.0.7")
+    }
+}
 
-import korlibs.io.dynamic.dyn
-import korlibs.io.file.PathInfo
-import korlibs.io.file.baseName
-import korlibs.io.file.normalize
-import korlibs.io.file.std.UrlVfs
-import korlibs.io.net.URL
-import korlibs.io.serialization.json.Json
-import kotlinx.coroutines.runBlocking
-import org.yaml.snakeyaml.DumperOptions
-import org.yaml.snakeyaml.Yaml
-import java.io.File
-import java.time.Instant
 
 fun downloadUrlText(url: String): String {
     return runBlocking { UrlVfs(URL(url)).readString() }
@@ -42,12 +40,6 @@ fun updateFrontMatter(file: File, data: Map<String, Any?>) {
 }
 
 val GITHUB_TREE_URL_REGEX = Regex("https://github.com/(.*?)/(.*?)/tree/(.*?)/(.*?)")
-
-if (args.isEmpty()) {
-    println("Pass as a parameter a URL like:")
-    println(" - https://github.com/korlibs/korge-jitto/tree/0.0.3/korge-jitto")
-    System.exit(-1)
-}
 
 fun getRepoUrl(org: String, repo: String): String {
     return "https://github.com/$org/$repo.git"
@@ -82,7 +74,7 @@ fun getRepoTags(org: String, repo: String): List<TagInfo> {
     val lines = ProcessBuilder()
         .command("git", "log", "--no-walk", "--tags", "--pretty=%H:::::%d:::::%at:::::%s", "--decorate=full", "--date-order")
         .directory(getLocalGitRepoFolder(org, repo))
-        .start().inputStream.readAllBytes().toString(Charsets.UTF_8)
+        .start().inputStream.readBytes().toString(Charsets.UTF_8)
         .lines()
         .map { it.trim() }
         .filter { it.isNotBlank() }
@@ -139,36 +131,43 @@ fun addTagToMap(data: MutableMap<String, Any?>, vtag: TagInfo) {
     println(" -> ${dates[vtag.commitId]}")
 }
 
-var rargs = args.toList()
-rargs = rargs.flatMap {
-    if (it.startsWith("@")) {
-        File(it.substring(1)).readLines()
-    } else {
-        listOf(it)
+fun addLinks(vararg args: String) {
+
+    if (args.isEmpty()) {
+        println("Pass as a parameter a URL like:")
+        println(" - https://github.com/korlibs/korge-jitto/tree/0.0.3/korge-jitto")
+        System.exit(-1)
     }
-}
+    var rargs = args.toList()
+    rargs = rargs.flatMap {
+        if (it.startsWith("@")) {
+            File(it.substring(1)).readLines()
+        } else {
+            listOf(it)
+        }
+    }
 
-for (url in rargs) {
-    val match = GITHUB_TREE_URL_REGEX.matchEntire(url) ?: error("URL '$url' doesn't match <$GITHUB_TREE_URL_REGEX>")
+    for (url in rargs) {
+        val match = GITHUB_TREE_URL_REGEX.matchEntire(url) ?: error("URL '$url' doesn't match <$GITHUB_TREE_URL_REGEX>")
 
-    val org = PathInfo(match.groupValues[1]).baseName
-    val repo = PathInfo(match.groupValues[2]).baseName
-    val ref = PathInfo(match.groupValues[3]).baseName
-    val path = "/" + PathInfo(match.groupValues[4]).normalize()
+        val org = PathInfo(match.groupValues[1]).baseName
+        val repo = PathInfo(match.groupValues[2]).baseName
+        val ref = PathInfo(match.groupValues[3]).baseName
+        val path = "/" + PathInfo(match.groupValues[4]).normalize()
 
-    println("org: $org, repo: $repo, ref: $ref, path: $path")
+        println("org: $org, repo: $repo, ref: $ref, path: $path")
 
-    val mainModuleFile = File("./_modules/github.com/$org/$repo/$path.md")
-    val repotagsFile = File("./_repotags/github.com/$org/$repo/github.com-$org-$repo.json")
+        val mainModuleFile = File("./_modules/github.com/$org/$repo/$path.md")
+        val repotagsFile = File("./_repotags/github.com/$org/$repo/github.com-$org-$repo.json")
 
-    println("file: $mainModuleFile")
+        println("file: $mainModuleFile")
 
-    ensureGitRepo(org, repo)
+        ensureGitRepo(org, repo)
 
-    if (!mainModuleFile.exists()) {
-        mainModuleFile.parentFile.mkdirs()
-        mainModuleFile.writeText(
-            """
+        if (!mainModuleFile.exists()) {
+            mainModuleFile.parentFile.mkdirs()
+            mainModuleFile.writeText(
+                """
         ---
         layout: module
         title: ${PathInfo(path).baseName}
@@ -177,20 +176,20 @@ for (url in rargs) {
         link: https://github.com/$org/$repo/tree/main$path
         ---
     """.trimIndent()
-        )
-    }
-    if (!repotagsFile.exists()) {
-        repotagsFile.parentFile.mkdirs()
-        repotagsFile.writeText(
-            """
+            )
+        }
+        if (!repotagsFile.exists()) {
+            repotagsFile.parentFile.mkdirs()
+            repotagsFile.writeText(
+                """
         ---
         layout: repotag
         title: github.com-$org-$repo
         tags:
         ---
     """.trimIndent()
-        )
-    }
+            )
+        }
 
 //for (file in File("_modules").walkTopDown()) {
 //    if (file.name.endsWith(".md")) {
@@ -202,15 +201,57 @@ for (url in rargs) {
 //}
 //System.exit(-1)
 
-    val data = extractFrontMatter(repotagsFile)
-    data["tags"] = arrayListOf<Any?>()
-    data["dates"] = mutableMapOf<String, String>()
-    for (tag in getRepoTags(org, repo)) {
-        addTagToMap(data, tag)
+        val data = extractFrontMatter(repotagsFile)
+        data["tags"] = arrayListOf<Any?>()
+        data["dates"] = mutableMapOf<String, String>()
+        for (tag in getRepoTags(org, repo)) {
+            addTagToMap(data, tag)
+        }
+        updateFrontMatter(repotagsFile, data)
     }
-    updateFrontMatter(repotagsFile, data)
 }
 
 //file.writer().use {
 //    yaml.dump(data, it) // Save the modified data structure with original formatting
 //}
+
+object FrontMatter {
+    val yaml = Yaml(DumperOptions().also {
+        it.isPrettyFlow = true
+        it.defaultFlowStyle = DumperOptions.FlowStyle.BLOCK
+    })
+
+    val FRONTMATTER_REGEX = Regex("---\n(.*)\n---", RegexOption.DOT_MATCHES_ALL)
+
+    fun extract(file: File): MutableMap<String, Any?> {
+        val content = FRONTMATTER_REGEX.find(file.readText())
+        val yamlContent = content?.groupValues?.get(1) ?: error("Can't find frontmatter ('---') in $file")
+        return yaml.load(yamlContent) as MutableMap<String, Any?>
+    }
+}
+
+tasks {
+    val updateAll by creating {
+        group = "links"
+        doLast {
+            val links = File("./_modules").walkBottomUp().filter { it.name.endsWith(".md") }.map { FrontMatter.extract(it)["link"] }.toList()
+
+            addLinks(*links.map { it.toString() }.toTypedArray())
+        }
+    }
+
+    val addLinks by creating {
+        group = "links"
+        doLast {
+            val scanner = Scanner(System.`in`)
+            while (true) {
+                println("Type a link and press return (for example https://github.com/korlibs/korge-jitto/tree/0.0.3/korge-jitto):")
+                val line = scanner.nextLine().trim()
+                if (line.isEmpty()) break
+                addLinks(line)
+            }
+            //println(System.`in`.reader().readText())
+            //System.`in`.reader().forEachLine { println("READ: $it") }
+        }
+    }
+}

@@ -3,3 +3,5 @@
 /args.txt
 /@args.txt
 .DS_Store
+/.gradle
+/out
