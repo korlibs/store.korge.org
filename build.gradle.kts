@@ -243,12 +243,17 @@ tasks {
     val addLinks by creating {
         group = "links"
         doLast {
-            val scanner = Scanner(System.`in`)
-            while (true) {
-                println("Type a link and press return (for example https://github.com/korlibs/korge-jitto/tree/0.0.3/korge-jitto):")
-                val line = scanner.nextLine().trim()
-                if (line.isEmpty()) break
-                addLinks(line)
+            val linkToAdd = project.findProperty("link.to.add")?.toString()
+            if (linkToAdd.isNullOrBlank()) {
+                val scanner = Scanner(System.`in`)
+                while (true) {
+                    println("Type a link and press return (for example https://github.com/korlibs/korge-jitto/tree/0.0.3/korge-jitto):")
+                    val line = scanner.nextLine().trim()
+                    if (line.isEmpty()) break
+                    addLinks(line)
+                }
+            } else {
+                addLinks(linkToAdd)
             }
             //println(System.`in`.reader().readText())
             //System.`in`.reader().forEachLine { println("READ: $it") }
