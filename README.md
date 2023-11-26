@@ -2,8 +2,16 @@
 
 To contribute fork this repository, then execute (changing the URL):
 
+### Linux and MacOS:
+
 ```bash
-./addlink.main.kts https://github.com/korlibs/korge-fleks/tree/main/korge-fleks
+./addlink.sh https://github.com/korlibs/korge-fleks/tree/main/korge-fleks
+```
+
+### Windows:
+
+```cmd
+addlink.bat https://github.com/korlibs/korge-fleks/tree/main/korge-fleks
 ```
 
 That will create the proper entry, will download the tags and commitIds.
