@@ -11,7 +11,7 @@ on:
         type: boolean
 
 jobs:
-  sync-notion:
+  updateall:
     runs-on: ubuntu-latest
     timeout-minutes: 45
     #if: ${{ inputs.print_tags }}
