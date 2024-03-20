@@ -30,6 +30,12 @@ jobs:
       - name: Add all to git
         run: git add -A
 
+      - name: Git status
+        run: git status
+
+      - name: Git commit
+        run: "git commit -m'chore: update existing repos ${date}'"
+
       - name: Commit & Push changes
         uses: actions-js/push@156f2b10c3aa000c44dbe75ea7018f32ae999772 # https://github.com/actions-js/push/releases/tag/v1.4
         with:
