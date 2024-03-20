@@ -13,7 +13,7 @@ on:
 jobs:
   sync-notion:
     runs-on: ubuntu-latest
-    timeout-minutes: 2
+    timeout-minutes: 45
     #if: ${{ inputs.print_tags }}
     steps:
       - uses: actions/checkout@v3
@@ -23,15 +23,15 @@ jobs:
           fetch-depth: 0 # otherwise, you will failed to push refs to dest repo
 
       - name: Update all refs
-        timeout-minutes: 1
+        timeout-minutes: 15
         run: ./updateall.sh
 
       - name: Add all to git
-        timeout-minutes: 1
+        timeout-minutes: 15
         run: git add -A
 
       - name: Commit & Push changes
-        timeout-minutes: 1
+        timeout-minutes: 15
         uses: actions-js/push@156f2b10c3aa000c44dbe75ea7018f32ae999772 # https://github.com/actions-js/push/releases/tag/v1.4
         with:
           branch: main

@@ -5,3 +5,5 @@
 .DS_Store
 /.gradle
 /out
+/build
+
