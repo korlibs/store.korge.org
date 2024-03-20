@@ -26,9 +26,14 @@ jobs:
         timeout-minutes: 1
         run: ./updateall.sh
 
+      - name: Add all to git
+        timeout-minutes: 1
+        run: git add -A
+
       - name: Commit & Push changes
         timeout-minutes: 1
         uses: actions-js/push@156f2b10c3aa000c44dbe75ea7018f32ae999772 # https://github.com/actions-js/push/releases/tag/v1.4
         with:
           branch: main
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          message: 'chore: update existing repos ${date}'	
