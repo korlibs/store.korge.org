@@ -1,0 +1,34 @@
+on:
+  # https://crontab.guru/#0_10,22_*_*_*
+  schedule:
+    - cron: '0 8 * * *'
+    #- cron: '0 10,22 * * *'
+  workflow_dispatch:
+    inputs:
+      print_tags:
+        description: 'True to print to STDOUT'
+        required: false
+        type: boolean
+
+jobs:
+  sync-notion:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    #if: ${{ inputs.print_tags }}
+    steps:
+      - uses: actions/checkout@v3
+        timeout-minutes: 1
+        with:
+          persist-credentials: false # otherwise, the token used is the GITHUB_TOKEN, instead of your personal token
+          fetch-depth: 0 # otherwise, you will failed to push refs to dest repo
+
+      - name: Update all refs
+        timeout-minutes: 1
+        run: ./updateall.sh
+
+      - name: Commit & Push changes
+        timeout-minutes: 1
+        uses: actions-js/push@156f2b10c3aa000c44dbe75ea7018f32ae999772 # https://github.com/actions-js/push/releases/tag/v1.4
+        with:
+          branch: main
+          github_token: ${{ secrets.GITHUB_TOKEN }}
