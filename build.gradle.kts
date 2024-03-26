@@ -27,16 +27,8 @@ val yaml = Yaml(DumperOptions().also {
     it.defaultFlowStyle = DumperOptions.FlowStyle.BLOCK
 })
 
-val FRONTMATTER_REGEX = Regex("---\n(.*)\n---", RegexOption.DOT_MATCHES_ALL)
-
-fun extractFrontMatter(file: File): MutableMap<String, Any?> {
-    val content = FRONTMATTER_REGEX.find(file.readText())
-    val yamlContent = content?.groupValues?.get(1) ?: error("Can't find frontmatter ('---')")
-    return yaml.load(yamlContent) as MutableMap<String, Any?>
-}
-
 fun updateFrontMatter(file: File, data: Map<String, Any?>) {
-    file.writeText(FRONTMATTER_REGEX.replace(file.readText(), "---\n" + yaml.dump(data).trim() + "\n---"))
+    file.writeText("---\n" + yaml.dump(data).trim() + "\n---")
 }
 
 val GITHUB_TREE_URL_REGEX = Regex("https://github.com/(.*?)/(.*?)/tree/(.*?)/(.*?)")
@@ -72,7 +64,15 @@ data class TagInfo(
 
 fun getRepoTags(org: String, repo: String): List<TagInfo> {
     val lines = ProcessBuilder()
-        .command("git", "log", "--no-walk", "--tags", "--pretty=%H:::::%d:::::%at:::::%s", "--decorate=full", "--date-order")
+        .command(
+            "git",
+            "log",
+            "--no-walk",
+            "--tags",
+            "--pretty=%H:::::%d:::::%at:::::%s",
+            "--decorate=full",
+            "--date-order"
+        )
         .directory(getLocalGitRepoFolder(org, repo))
         .start().inputStream.readBytes().toString(Charsets.UTF_8)
         .lines()
@@ -81,7 +81,8 @@ fun getRepoTags(org: String, repo: String): List<TagInfo> {
 
     val map = lines.map {
         val (commitId, refInfo, date, message) = it.split(":::::")
-        val tagId = Regex("refs/tags/(.*?)(,|\\)|\$)").find(refInfo)?.groupValues?.get(1) ?: error("Can't find tagId in '$refInfo'")
+        val tagId = Regex("refs/tags/(.*?)(,|\\)|\$)").find(refInfo)?.groupValues?.get(1)
+            ?: error("Can't find tagId in '$refInfo'")
         TagInfo(commitId, tagId, date.toLong() * 1000L)
     }
 
@@ -201,7 +202,7 @@ fun addLinks(vararg args: String) {
 //}
 //System.exit(-1)
 
-        val data = extractFrontMatter(repotagsFile)
+        val data = FrontMatter.extract(repotagsFile)
         data["tags"] = arrayListOf<Any?>()
         data["dates"] = mutableMapOf<String, String>()
         for (tag in getRepoTags(org, repo)) {
@@ -221,11 +222,9 @@ object FrontMatter {
         it.defaultFlowStyle = DumperOptions.FlowStyle.BLOCK
     })
 
-    val FRONTMATTER_REGEX = Regex("---\n(.*)\n---", RegexOption.DOT_MATCHES_ALL)
-
     fun extract(file: File): MutableMap<String, Any?> {
-        val content = FRONTMATTER_REGEX.find(file.readText())
-        val yamlContent = content?.groupValues?.get(1) ?: error("Can't find frontmatter ('---') in $file")
+        val lines = file.readText().lines()
+        val yamlContent = lines.filter { "---" !in it }.joinToString("\n")
         return yaml.load(yamlContent) as MutableMap<String, Any?>
     }
 }
@@ -234,7 +233,8 @@ tasks {
     val updateAll by creating {
         group = "links"
         doLast {
-            val links = File("./_modules").walkBottomUp().filter { it.name.endsWith(".md") }.map { FrontMatter.extract(it)["link"] }.toList()
+            val links = File("./_modules").walkBottomUp().filter { it.name.endsWith(".md") }
+                .map { FrontMatter.extract(it)["link"] }.toList()
 
             addLinks(*links.map { it.toString() }.toTypedArray())
         }
