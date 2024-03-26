@@ -64,15 +64,7 @@ data class TagInfo(
 
 fun getRepoTags(org: String, repo: String): List<TagInfo> {
     val lines = ProcessBuilder()
-        .command(
-            "git",
-            "log",
-            "--no-walk",
-            "--tags",
-            "--pretty=%H:::::%d:::::%at:::::%s",
-            "--decorate=full",
-            "--date-order"
-        )
+        .command("git", "log", "--no-walk", "--tags", "--pretty=%H:::::%d:::::%at:::::%s", "--decorate=full", "--date-order")
         .directory(getLocalGitRepoFolder(org, repo))
         .start().inputStream.readBytes().toString(Charsets.UTF_8)
         .lines()
@@ -81,8 +73,7 @@ fun getRepoTags(org: String, repo: String): List<TagInfo> {
 
     val map = lines.map {
         val (commitId, refInfo, date, message) = it.split(":::::")
-        val tagId = Regex("refs/tags/(.*?)(,|\\)|\$)").find(refInfo)?.groupValues?.get(1)
-            ?: error("Can't find tagId in '$refInfo'")
+        val tagId = Regex("refs/tags/(.*?)(,|\\)|\$)").find(refInfo)?.groupValues?.get(1) ?: error("Can't find tagId in '$refInfo'")
         TagInfo(commitId, tagId, date.toLong() * 1000L)
     }
 
@@ -233,8 +224,7 @@ tasks {
     val updateAll by creating {
         group = "links"
         doLast {
-            val links = File("./_modules").walkBottomUp().filter { it.name.endsWith(".md") }
-                .map { FrontMatter.extract(it)["link"] }.toList()
+            val links = File("./_modules").walkBottomUp().filter { it.name.endsWith(".md") }.map { FrontMatter.extract(it)["link"] }.toList()
 
             addLinks(*links.map { it.toString() }.toTypedArray())
         }
