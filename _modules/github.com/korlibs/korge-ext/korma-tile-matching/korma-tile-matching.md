@@ -20,7 +20,7 @@ This module allows to automatically find IntArray2 patterns and update a Stacked
 
 ```kotlin
 suspend fun main() = Korge(windowSize = Size(256 * 2, 196 * 2)) {
-    val tilesIDC = resourcesVfs["tiles.ase"].readImageDataContainer(ASE)
+    val tilesIDC = resourcesVfs["gfx/tiles.ase"].readImageDataContainer(ASE)
     val tiles = tilesIDC.mainBitmap.slice()
     val tileSet = TileSet(tiles.splitInRows(16, 16).mapIndexed { index, slice -> TileSetTileInfo(index, slice) })
     val tileMap = tileMap(TileMapData(32, 24, tileSet = tileSet))
