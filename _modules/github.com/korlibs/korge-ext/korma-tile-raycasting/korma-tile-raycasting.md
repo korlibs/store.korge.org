@@ -2,7 +2,7 @@
 layout: module
 title: Tiled-based Raycasting
 authors: [korlibs]
-category: Other
+category: Tilemaps
 link: https://github.com/korlibs/korge-ext/tree/main/korma-tile-raycasting/korma-tile-raycasting
 icon: /i/modules/korma-tile-raycasting.png
 ---
