@@ -10,6 +10,7 @@ files:
 assets_base: https://raw.githubusercontent.com/korlibs/korge-ext/f5859c899f371406d096485155a3abb3f5b4d518/korma-tile-matching/resources/
 assets:
 - { title: Tiles, name: tiles, preview: screenshot.png, download: tiles.ase }
+icon: /i/modules/korma-tile-matching.png
 
 ---
 
