@@ -27,16 +27,8 @@ val yaml = Yaml(DumperOptions().also {
     it.defaultFlowStyle = DumperOptions.FlowStyle.BLOCK
 })
 
-val FRONTMATTER_REGEX = Regex("---\n(.*)\n---", RegexOption.DOT_MATCHES_ALL)
-
-fun extractFrontMatter(file: File): MutableMap<String, Any?> {
-    val content = FRONTMATTER_REGEX.find(file.readText())
-    val yamlContent = content?.groupValues?.get(1) ?: error("Can't find frontmatter ('---')")
-    return yaml.load(yamlContent) as MutableMap<String, Any?>
-}
-
 fun updateFrontMatter(file: File, data: Map<String, Any?>) {
-    file.writeText(FRONTMATTER_REGEX.replace(file.readText(), "---\n" + yaml.dump(data).trim() + "\n---"))
+    file.writeText("---\n" + yaml.dump(data).trim() + "\n---")
 }
 
 val GITHUB_TREE_URL_REGEX = Regex("https://github.com/(.*?)/(.*?)/tree/(.*?)/(.*?)")
@@ -201,7 +193,7 @@ fun addLinks(vararg args: String) {
 //}
 //System.exit(-1)
 
-        val data = extractFrontMatter(repotagsFile)
+        val data = FrontMatter.extract(repotagsFile)
         data["tags"] = arrayListOf<Any?>()
         data["dates"] = mutableMapOf<String, String>()
         for (tag in getRepoTags(org, repo)) {
@@ -221,11 +213,9 @@ object FrontMatter {
         it.defaultFlowStyle = DumperOptions.FlowStyle.BLOCK
     })
 
-    val FRONTMATTER_REGEX = Regex("---\n(.*)\n---", RegexOption.DOT_MATCHES_ALL)
-
     fun extract(file: File): MutableMap<String, Any?> {
-        val content = FRONTMATTER_REGEX.find(file.readText())
-        val yamlContent = content?.groupValues?.get(1) ?: error("Can't find frontmatter ('---') in $file")
+        val lines = file.readText().lines()
+        val yamlContent = lines.filter { "---" !in it }.joinToString("\n")
         return yaml.load(yamlContent) as MutableMap<String, Any?>
     }
 }
