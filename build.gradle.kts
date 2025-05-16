@@ -57,10 +57,10 @@ fun ensureGitRepo(org: String, repo: String): File {
             .command("git", "clone", getRepoUrl(org, repo), localGitRepoFolder.absolutePath)
             .start().waitFor()
     }
-    //ProcessBuilder().inheritIO()
-    //    .command("git", "pull")
-    //    .directory(localGitRepoFolder)
-    //    .start().waitFor()
+    ProcessBuilder().inheritIO()
+        .command("git", "pull")
+        .directory(localGitRepoFolder)
+        .start().waitFor()
     return localGitRepoFolder
 }
 
