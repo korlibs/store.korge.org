@@ -11,4 +11,21 @@ dates:
   d459c5006687af485d03e0dec0da8961bc33a46f: '2023-10-04T19:51:10Z'
   18181da19d223c5dd2efd086703cfbdc40ca01e6: '2023-10-03T16:41:58Z'
   2e5b2a2d1b67d12d5a93dc442efdf077db32610f: '2023-05-03T10:35:16Z'
+newtags:
+  v0.1.2:
+    commitId: 041e004b675ceb4bc57a408b32124661e3cf5be7
+    korgeVersion: 5.0.5
+    date: '2023-10-05T13:51:02Z'
+  v0.1.1:
+    commitId: d459c5006687af485d03e0dec0da8961bc33a46f
+    korgeVersion: 5.0.4
+    date: '2023-10-04T19:51:10Z'
+  v0.1.0:
+    commitId: 18181da19d223c5dd2efd086703cfbdc40ca01e6
+    korgeVersion: 5.0.2
+    date: '2023-10-03T16:41:58Z'
+  0.0.1:
+    commitId: 2e5b2a2d1b67d12d5a93dc442efdf077db32610f
+    korgeVersion: null
+    date: '2023-05-03T10:35:16Z'
 ---

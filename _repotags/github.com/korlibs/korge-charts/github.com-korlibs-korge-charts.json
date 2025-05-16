@@ -7,4 +7,13 @@ tags:
 dates:
   9550f017932812dee45d2ffebd4aa86e13dbd523: '2024-03-26T08:10:41Z'
   e7bbcb43b4d2462873f23033acd6ec2d3c79b331: '2023-11-26T18:10:55Z'
+newtags:
+  v1.0.0:
+    commitId: 9550f017932812dee45d2ffebd4aa86e13dbd523
+    korgeVersion: 5.1.0
+    date: '2024-03-26T08:10:41Z'
+  v0.0.1:
+    commitId: e7bbcb43b4d2462873f23033acd6ec2d3c79b331
+    korgeVersion: 5.1.0
+    date: '2023-11-26T18:10:55Z'
 ---

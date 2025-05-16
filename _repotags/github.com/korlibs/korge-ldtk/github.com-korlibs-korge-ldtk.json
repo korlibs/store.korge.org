@@ -2,6 +2,7 @@
 layout: repotag
 title: github.com-korlibs-korge-ldtk
 tags:
+- v1.0.5: bb12d3f0a042c55534abb8976eea46555317da85
 - v1.0.4: 56c3e8faf0a25ba3895efb2749cfad6935b68a70
 - v1.0.3: d72694fd802ae06fbe03c96dfa448d55b1287d9f
 - v1.0.2: 3cc31bddd707037084f8e0d764a9706cc99f0bfb
@@ -12,6 +13,7 @@ tags:
 - 0.0.2: f5944022553b6ee70ec4879193e6de1e716e73e1
 - v0.0.1: 2d1b8299636cffca851e05aec446dc99120dfd1b
 dates:
+  bb12d3f0a042c55534abb8976eea46555317da85: '2025-05-08T16:02:18Z'
   56c3e8faf0a25ba3895efb2749cfad6935b68a70: '2025-05-08T15:44:33Z'
   d72694fd802ae06fbe03c96dfa448d55b1287d9f: '2024-09-19T15:28:12Z'
   3cc31bddd707037084f8e0d764a9706cc99f0bfb: '2023-10-05T13:45:30Z'
@@ -21,4 +23,45 @@ dates:
   39dd48ea60d7976d217539649c0c229df2948ace: '2023-06-11T03:41:19Z'
   f5944022553b6ee70ec4879193e6de1e716e73e1: '2023-05-03T10:33:08Z'
   2d1b8299636cffca851e05aec446dc99120dfd1b: '2022-10-25T20:49:32Z'
+newtags:
+  v1.0.5:
+    commitId: bb12d3f0a042c55534abb8976eea46555317da85
+    korgeVersion: 6.0.0-beta4
+    date: '2025-05-08T16:02:18Z'
+  v1.0.4:
+    commitId: 56c3e8faf0a25ba3895efb2749cfad6935b68a70
+    korgeVersion: 6.0.0-beta4
+    date: '2025-05-08T15:44:33Z'
+  v1.0.3:
+    commitId: d72694fd802ae06fbe03c96dfa448d55b1287d9f
+    korgeVersion: 6.0.0-beta4
+    date: '2024-09-19T15:28:12Z'
+  v1.0.2:
+    commitId: 3cc31bddd707037084f8e0d764a9706cc99f0bfb
+    korgeVersion: 5.0.5
+    date: '2023-10-05T13:45:30Z'
+  v1.0.1:
+    commitId: 1449331b57dc2828b686a0fc3b120b45ddaa0973
+    korgeVersion: 5.0.4
+    date: '2023-10-04T19:52:51Z'
+  v1.0.0:
+    commitId: 907faf6e945a5027ed85817b6fd1f0ef99e63fb9
+    korgeVersion: 5.0.2
+    date: '2023-10-02T16:00:11Z'
+  v0.0.4:
+    commitId: a4e753a009531dc1206b421f8bd9eeee0274a126
+    korgeVersion: 4.0.3
+    date: '2023-06-12T03:07:43Z'
+  v0.0.3:
+    commitId: 39dd48ea60d7976d217539649c0c229df2948ace
+    korgeVersion: null
+    date: '2023-06-11T03:41:19Z'
+  0.0.2:
+    commitId: f5944022553b6ee70ec4879193e6de1e716e73e1
+    korgeVersion: null
+    date: '2023-05-03T10:33:08Z'
+  v0.0.1:
+    commitId: 2d1b8299636cffca851e05aec446dc99120dfd1b
+    korgeVersion: null
+    date: '2022-10-25T20:49:32Z'
 ---

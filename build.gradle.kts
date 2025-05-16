@@ -57,24 +57,52 @@ fun ensureGitRepo(org: String, repo: String): File {
             .command("git", "clone", getRepoUrl(org, repo), localGitRepoFolder.absolutePath)
             .start().waitFor()
     }
-    ProcessBuilder().inheritIO()
-        .command("git", "pull")
-        .directory(localGitRepoFolder)
-        .start().waitFor()
+    //ProcessBuilder().inheritIO()
+    //    .command("git", "pull")
+    //    .directory(localGitRepoFolder)
+    //    .start().waitFor()
     return localGitRepoFolder
 }
 
 data class TagInfo(
     val commitId: String,
     val tagId: String,
-    val date: Long
+    val date: Long,
+    val korgeVersion: String?,
 )
 
+fun getKorgeVersionFromLibsTomlFileOrNull(content: String): String? {
+    for (line in content.lines()) {
+        if (line.trim().startsWith("korge") && line.contains("com.soywiz.korge")) {
+            Regex("version\\s*=\\s*['\"](.*)['\"]").find(line)?.let { match ->
+                return match.groupValues[1]
+            }
+        }
+    }
+    return null
+}
+
+fun getKorgeVersionFromBuildGradleKts(content: String): String? {
+    //id("com.soywiz.korge") version "4.0.6"
+    for (line in content.lineSequence().map { it.trim() }) {
+        if (line.startsWith("id(") && line.contains("com.soywiz.korge")) {
+            Regex("version\\s*['\"](.*)['\"]").find(line)?.let { match ->
+                return match.groupValues[1]
+            }
+        }
+    }
+    return null
+}
+
 fun getRepoTags(org: String, repo: String): List<TagInfo> {
-    val lines = ProcessBuilder()
-        .command("git", "log", "--no-walk", "--tags", "--pretty=%H:::::%d:::::%at:::::%s", "--decorate=full", "--date-order")
-        .directory(getLocalGitRepoFolder(org, repo))
-        .start().inputStream.readBytes().toString(Charsets.UTF_8)
+    fun command(vararg args: String): String {
+        return ProcessBuilder()
+            .command(*args)
+            .directory(getLocalGitRepoFolder(org, repo))
+            .start().inputStream.readBytes().toString(Charsets.UTF_8)
+    }
+
+    val lines = command("git", "log", "--no-walk", "--tags", "--pretty=%H:::::%d:::::%at:::::%s", "--decorate=full", "--date-order")
         .lines()
         .map { it.trim() }
         .filter { it.isNotBlank() }
@@ -82,7 +110,10 @@ fun getRepoTags(org: String, repo: String): List<TagInfo> {
     val map = lines.map {
         val (commitId, refInfo, date, message) = it.split(":::::")
         val tagId = Regex("refs/tags/(.*?)(,|\\)|\$)").find(refInfo)?.groupValues?.get(1) ?: error("Can't find tagId in '$refInfo'")
-        TagInfo(commitId, tagId, date.toLong() * 1000L)
+        val korgeVersion = getKorgeVersionFromLibsTomlFileOrNull(command("git", "show",  "${commitId}:gradle/libs.versions.toml"))
+            ?: getKorgeVersionFromBuildGradleKts(command("git", "show",  "${commitId}:build.gradle.kts"))
+
+        TagInfo(commitId, tagId, date.toLong() * 1000L, korgeVersion)
     }
 
     return map
@@ -109,8 +140,19 @@ fun addTagToMap(data: MutableMap<String, Any?>, vtag: TagInfo) {
     if ("dates" !in data || data["dates"] !is MutableMap<*, *>) {
         data["dates"] = mutableMapOf<String, String>()
     }
+    if ("newtags" !in data || data["newtags"] !is MutableMap<*, *>) {
+        data["newtags"] = mutableMapOf<String, Any?>()
+    }
     val tags = (data["tags"] as MutableList<Map<String, String>>)
+    val newtags = (data["newtags"] as MutableMap<String, Map<String, Any?>>)
     var exists = false
+
+    newtags[vtag.tagId] = mapOf(
+        "commitId" to vtag.commitId,
+        "korgeVersion" to vtag.korgeVersion,
+        "date" to Instant.ofEpochMilli(vtag.date).toString()
+    )
+
     for (_tag in tags) {
         if (vtag.tagId in _tag) {
             exists = true
@@ -204,9 +246,11 @@ fun addLinks(vararg args: String) {
         val data = extractFrontMatter(repotagsFile)
         data["tags"] = arrayListOf<Any?>()
         data["dates"] = mutableMapOf<String, String>()
-        for (tag in getRepoTags(org, repo)) {
+        data["newtags"] = mutableMapOf<String, Any?>()
+        for (tag in getRepoTags(org, repo).sortedByDescending { it.date }) {
             addTagToMap(data, tag)
         }
+
         updateFrontMatter(repotagsFile, data)
     }
 }
