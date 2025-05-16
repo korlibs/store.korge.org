@@ -2,16 +2,22 @@
 layout: repotag
 title: github.com-korlibs-korge-particles
 tags:
+- v1.1.0: f8c20f88bba2f3aba2c37fd472c64e021e59c2cd
 - v1.0.2: c608c3c8c4f0aa6d42da3da61b86d4d3b20e4aa9
 - v1.0.1: 86405e22df43fd4c4f3fdbe6b62c2788e8a3ffd5
 - v1.0.0: b81104af4b51c6a6514e65654179d32b4f294f8b
 - 0.0.1: 96fbf0d7b4b04ac1a8381bc453d40f4f449a277e
 dates:
+  f8c20f88bba2f3aba2c37fd472c64e021e59c2cd: '2025-05-16T09:29:17Z'
   c608c3c8c4f0aa6d42da3da61b86d4d3b20e4aa9: '2023-10-05T13:45:49Z'
   86405e22df43fd4c4f3fdbe6b62c2788e8a3ffd5: '2023-10-04T19:53:27Z'
   b81104af4b51c6a6514e65654179d32b4f294f8b: '2023-10-03T17:11:40Z'
   96fbf0d7b4b04ac1a8381bc453d40f4f449a277e: '2023-05-03T11:29:46Z'
 newtags:
+  v1.1.0:
+    commitId: f8c20f88bba2f3aba2c37fd472c64e021e59c2cd
+    korgeVersion: 6.0.0-beta4
+    date: '2025-05-16T09:29:17Z'
   v1.0.2:
     commitId: c608c3c8c4f0aa6d42da3da61b86d4d3b20e4aa9
     korgeVersion: 5.0.5
