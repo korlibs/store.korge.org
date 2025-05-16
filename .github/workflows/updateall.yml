@@ -1,3 +1,5 @@
+name: Update All repositories and search for new versions
+ 
 on:
   # https://crontab.guru/#0_10,22_*_*_*
   schedule:
