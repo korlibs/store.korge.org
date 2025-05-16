@@ -47,17 +47,16 @@ title: My Page
                 Tags:
             </h3>
             <ul class="list-group">
-                {% for tag in repotag.tags %}
-                {% for t in tag %}
-                <a href="#{{t|first}}" class="tagref list-group-item list-group-item-action">
-                    {{ t | first }}
-                    {% assign commitId = t | last %}
-                    {% assign date = repotag.dates[commitId] %}
-                    {% if date %}
-                    <small class="badge badge-info">{{ date | date: "%Y-%m-%d" }}</small>
+                {% for ttag in repotag.newtags %}
+                {% assign tagName = ttag[0] %}
+                {% assign tag = ttag[1] %}
+                <a href="#{{tagName}}" class="tagref list-group-item list-group-item-action">
+                    {{ tagName }}
+                    <small class="badge badge-info">{{ tag.date | date: "%Y-%m-%d" }}</small>
+                    {% if tag.korgeVersion %}
+                    <small class="badge badge-secondary">KorGE {{ tag.korgeVersion }}</small>
                     {% endif %}
                 </a>
-                {% endfor %}
                 {% endfor %}
             </ul>
         </div>
