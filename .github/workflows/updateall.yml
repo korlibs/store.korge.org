@@ -2,8 +2,9 @@ name: Update All repositories and search for new versions
  
 on:
   # https://crontab.guru/#0_10,22_*_*_*
+  push:
   schedule:
-    - cron: '0 8 * * *'
+    - cron: '0 22 1 * *'
     #- cron: '0 10,22 * * *'
   workflow_dispatch:
     inputs:
