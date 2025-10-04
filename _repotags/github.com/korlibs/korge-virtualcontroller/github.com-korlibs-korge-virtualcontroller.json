@@ -2,6 +2,7 @@
 layout: repotag
 title: github.com-korlibs-korge-virtualcontroller
 tags:
+- v1.2.0: 73fa9f7ddf3c7cff8b1a6a198093ca8e50e6a646
 - v1.1.0: f62a5271f908cd61dfbaa0b2dfbeb971128338ff
 - v1.0.2: df0e840b8171bb3f5b8f7a86b77fbe39e725be16
 - v1.0.1: 5cf53caa4eb4d8cdd550751aeb12e95633624160
@@ -12,6 +13,7 @@ tags:
 - 0.0.2: a55d78aca5405b7ae3bba411078a81a57529b06d
 - 0.0.1: a4e101857f80b3820407677bb987244956353254
 dates:
+  73fa9f7ddf3c7cff8b1a6a198093ca8e50e6a646: '2025-09-16T05:06:35Z'
   f62a5271f908cd61dfbaa0b2dfbeb971128338ff: '2025-05-16T09:21:53Z'
   df0e840b8171bb3f5b8f7a86b77fbe39e725be16: '2023-10-05T13:46:29Z'
   5cf53caa4eb4d8cdd550751aeb12e95633624160: '2023-10-04T19:53:58Z'
@@ -22,6 +24,10 @@ dates:
   a55d78aca5405b7ae3bba411078a81a57529b06d: '2023-05-10T01:06:01Z'
   a4e101857f80b3820407677bb987244956353254: '2023-05-10T00:28:44Z'
 newtags:
+  v1.2.0:
+    commitId: 73fa9f7ddf3c7cff8b1a6a198093ca8e50e6a646
+    korgeVersion: 6.0.0
+    date: '2025-09-16T05:06:35Z'
   v1.1.0:
     commitId: f62a5271f908cd61dfbaa0b2dfbeb971128338ff
     korgeVersion: 6.0.0-beta4
